@@ -77,11 +77,14 @@ public class DebrisAttachment : MonoBehaviour
         // Remove the cell from the reserved list
         shipGridSystem.RemoveReservedCell(targetGridPosition);
 
-        circleCollider.radius = 0.5f;
+        circleCollider.radius = 0.2f;
 
         // Attach the debris to the ship
         transform.SetParent(shipTransform); // Make the debris a child of the ship
         lineRenderer.enabled = false; // Disable the LineRenderer after attaching
+
+        // Stop the debris movement when attached
+        GetComponent<DebrisMovement>().AttachToShip();
     }
 
     void OnTriggerEnter2D(Collider2D other)
