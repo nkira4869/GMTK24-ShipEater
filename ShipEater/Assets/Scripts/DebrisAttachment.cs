@@ -69,12 +69,15 @@ public class DebrisAttachment : MonoBehaviour
 
         // Change the debris layer to "Player" (make sure you have a layer named "Player")
         gameObject.layer = LayerMask.NameToLayer("Player");
+        gameObject.tag = "Player";
 
         // Mark the grid cell as occupied and expand the grid
         shipGridSystem.MarkCellAsOccupied(targetGridPosition);
 
         // Remove the cell from the reserved list
         shipGridSystem.RemoveReservedCell(targetGridPosition);
+
+        circleCollider.radius = 0.5f;
 
         // Attach the debris to the ship
         transform.SetParent(shipTransform); // Make the debris a child of the ship

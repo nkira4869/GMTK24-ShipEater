@@ -179,4 +179,4 @@ MonoBehaviour:
   hexRadius: 0.3
   playerLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
