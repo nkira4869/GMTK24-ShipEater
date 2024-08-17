@@ -16,6 +16,7 @@ public class ShipHexGridSystem : MonoBehaviour
         new Vector2Int(0, -1),
         new Vector2Int(1, -1)
     };
+    private HashSet<Vector2Int> reservedCells = new HashSet<Vector2Int>(); // Track reserved cells
 
     void Start()
     {
@@ -24,6 +25,10 @@ public class ShipHexGridSystem : MonoBehaviour
 
         // Expand the grid to generate the first layer of empty cells
         ExpandGrid();
+    }
+    void Update()
+    {
+        UpdateGridCellStatus();
     }
 
     // Converts axial grid coordinates to world position
@@ -69,8 +74,10 @@ public class ShipHexGridSystem : MonoBehaviour
     // Expands the grid to ensure the outermost layer is all empty
     public void ExpandGrid()
     {
+        // Create a temporary list to store the new cells to add
         HashSet<Vector2Int> newCells = new HashSet<Vector2Int>();
 
+        // Collect the new cells without modifying the original gridCells dictionary
         foreach (var cell in gridCells)
         {
             if (!cell.Value) continue; // Skip if the cell is not occupied
@@ -81,33 +88,55 @@ public class ShipHexGridSystem : MonoBehaviour
                 Vector2Int neighbor = cell.Key + dir;
                 if (!gridCells.ContainsKey(neighbor))
                 {
-                    newCells.Add(neighbor); // Add new cells to track
+                    newCells.Add(neighbor); // Collect new cells to track
                 }
             }
         }
 
-        // Add new outer cells to the grid and mark them as empty
+        // Now, apply the collected changes to the original gridCells dictionary
         foreach (var cell in newCells)
         {
-            gridCells[cell] = false;
+            gridCells[cell] = false; // Mark the new cells as empty
         }
     }
 
     // Finds the nearest empty cell from a given world position
     public Vector2Int FindNearestEmptyCell(Vector3 worldPosition)
     {
-        Vector2Int axialCoords = GetAxialCoordinates(worldPosition);
+        Vector2Int nearestCell = new Vector2Int();
+        float shortestDistance = Mathf.Infinity;
 
-        // Return the nearest empty cell
         foreach (var cell in gridCells)
         {
-            if (!cell.Value && !IsCellOccupied(cell.Key))
+            if (!cell.Value && !reservedCells.Contains(cell.Key) && !IsCellOccupied(cell.Key)) // Check if the cell is empty and not reserved
             {
-                return cell.Key;
+                float distance = Vector3.Distance(worldPosition, GetWorldPosition(cell.Key));
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    nearestCell = cell.Key;
+                }
             }
         }
 
-        return axialCoords; // Fallback return if no empty cells found
+        // Mark the cell as reserved
+        reservedCells.Add(nearestCell);
+
+        return nearestCell;
+    }
+
+    public void RemoveReservedCell(Vector2Int cellPosition)
+    {
+        reservedCells.Remove(cellPosition);
+    }
+
+    void UpdateGridCellStatus()
+    {
+        var keys = new List<Vector2Int>(gridCells.Keys); // Copy keys to avoid modifying the collection during iteration
+        foreach (var key in keys)
+        {
+            gridCells[key] = IsCellOccupied(key);
+        }
     }
 
     // Visualize the hex grid in the editor using Gizmos
@@ -115,9 +144,12 @@ public class ShipHexGridSystem : MonoBehaviour
     {
         foreach (var cell in gridCells)
         {
+            // First, check if the cell is occupied using the current method
             bool occupied = IsCellOccupied(cell.Key);
-            Gizmos.color = occupied ? Color.red : Color.green; // Occupied cells are red, empty cells are green
-            Gizmos.DrawWireSphere(GetWorldPosition(cell.Key), hexRadius * 0.9f); // Draw hex cells
+
+            // Set the Gizmo color based on the occupancy
+            Gizmos.color = occupied ? Color.red : Color.green;
+            Gizmos.DrawWireSphere(GetWorldPosition(cell.Key), hexRadius * 0.9f);
         }
     }
 }

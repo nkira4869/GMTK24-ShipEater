@@ -73,6 +73,9 @@ public class DebrisAttachment : MonoBehaviour
         // Mark the grid cell as occupied and expand the grid
         shipGridSystem.MarkCellAsOccupied(targetGridPosition);
 
+        // Remove the cell from the reserved list
+        shipGridSystem.RemoveReservedCell(targetGridPosition);
+
         // Attach the debris to the ship
         transform.SetParent(shipTransform); // Make the debris a child of the ship
         lineRenderer.enabled = false; // Disable the LineRenderer after attaching
@@ -92,7 +95,7 @@ public class DebrisAttachment : MonoBehaviour
     }
 
     // Optional: Visualize the detection range in the editor
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
