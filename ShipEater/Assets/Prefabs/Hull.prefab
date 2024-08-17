@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1573134555975407141}
   - component: {fileID: 512759099295723226}
   - component: {fileID: 1302859669087300846}
+  - component: {fileID: 4932371339949071340}
   m_Layer: 6
   m_Name: Hull
   m_TagString: Player
@@ -180,3 +181,15 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4932371339949071340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216710739812777721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3527d99fd6a879c4b82d11e8c05ab6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
