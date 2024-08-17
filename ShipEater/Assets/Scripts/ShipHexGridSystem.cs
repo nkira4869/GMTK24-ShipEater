@@ -4,7 +4,9 @@ using UnityEngine;
 public class ShipHexGridSystem : MonoBehaviour
 {
     public float hexRadius = 1f; // The radius of each hex cell in world units
-    private Dictionary<Vector2Int, bool> gridCells = new Dictionary<Vector2Int, bool>(); // A dictionary to store grid cells with axial coordinates
+    public LayerMask playerLayerMask; // Layer mask for detecting objects on the "Player" layer
+
+    private Dictionary<Vector2Int, bool> gridCells = new Dictionary<Vector2Int, bool>(); // Stores grid cells with a flag indicating whether they are occupied
     private List<Vector2Int> directions = new List<Vector2Int>
     {
         new Vector2Int(1, 0),
@@ -17,10 +19,10 @@ public class ShipHexGridSystem : MonoBehaviour
 
     void Start()
     {
-        // Start with the central cell occupied
+        // Initialize the grid with the central cell and mark it as occupied
         gridCells[new Vector2Int(0, 0)] = true;
 
-        // Dynamically grow the grid with the outermost empty hex cells
+        // Expand the grid to generate the first layer of empty cells
         ExpandGrid();
     }
 
@@ -49,10 +51,25 @@ public class ShipHexGridSystem : MonoBehaviour
         return new Vector2Int(q, r);
     }
 
-    // Expands the grid to include the outermost layer of empty hex cells
+    // Checks if a grid cell is occupied by objects with the "Player" layer
+    public bool IsCellOccupied(Vector2Int gridPosition)
+    {
+        Vector3 worldPosition = GetWorldPosition(gridPosition);
+        Collider2D collider = Physics2D.OverlapCircle(worldPosition, hexRadius * 0.5f, playerLayerMask);
+        return collider != null;
+    }
+
+    // Marks a cell as occupied
+    public void MarkCellAsOccupied(Vector2Int gridPosition)
+    {
+        gridCells[gridPosition] = true;
+        ExpandGrid(); // Expand the grid whenever a cell is occupied
+    }
+
+    // Expands the grid to ensure the outermost layer is all empty
     public void ExpandGrid()
     {
-        HashSet<Vector2Int> outerCells = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> newCells = new HashSet<Vector2Int>();
 
         foreach (var cell in gridCells)
         {
@@ -64,28 +81,15 @@ public class ShipHexGridSystem : MonoBehaviour
                 Vector2Int neighbor = cell.Key + dir;
                 if (!gridCells.ContainsKey(neighbor))
                 {
-                    outerCells.Add(neighbor); // Add empty neighbors to the outer layer
+                    newCells.Add(neighbor); // Add new cells to track
                 }
             }
         }
 
-        // Mark the outer cells as empty
-        foreach (var cell in outerCells)
+        // Add new outer cells to the grid and mark them as empty
+        foreach (var cell in newCells)
         {
-            if (!gridCells.ContainsKey(cell))
-            {
-                gridCells[cell] = false; // False means the cell is empty
-            }
-        }
-    }
-
-    // Marks a cell as occupied
-    public void OccupyCell(Vector2Int axialCoords)
-    {
-        if (gridCells.ContainsKey(axialCoords))
-        {
-            gridCells[axialCoords] = true; // Mark the cell as occupied
-            ExpandGrid(); // Dynamically grow the grid after attaching a new part
+            gridCells[cell] = false;
         }
     }
 
@@ -94,41 +98,25 @@ public class ShipHexGridSystem : MonoBehaviour
     {
         Vector2Int axialCoords = GetAxialCoordinates(worldPosition);
 
-        if (gridCells.ContainsKey(axialCoords) && !gridCells[axialCoords])
-        {
-            return axialCoords; // Return the nearest empty cell if it's empty
-        }
-
-        // If the nearest cell is occupied, check the neighbors
-        foreach (var dir in directions)
-        {
-            Vector2Int neighbor = axialCoords + dir;
-            if (gridCells.ContainsKey(neighbor) && !gridCells[neighbor])
-            {
-                return neighbor;
-            }
-        }
-
-        // As a fallback, return the nearest empty cell (you can implement a more complex search here if needed)
+        // Return the nearest empty cell
         foreach (var cell in gridCells)
         {
-            if (!cell.Value)
+            if (!cell.Value && !IsCellOccupied(cell.Key))
             {
                 return cell.Key;
             }
         }
 
-        return axialCoords; // Fallback return
+        return axialCoords; // Fallback return if no empty cells found
     }
 
     // Visualize the hex grid in the editor using Gizmos
     void OnDrawGizmos()
     {
-        if (gridCells == null) return;
-
         foreach (var cell in gridCells)
         {
-            Gizmos.color = cell.Value ? Color.red : Color.green; // Occupied cells are red, empty cells are green
+            bool occupied = IsCellOccupied(cell.Key);
+            Gizmos.color = occupied ? Color.red : Color.green; // Occupied cells are red, empty cells are green
             Gizmos.DrawWireSphere(GetWorldPosition(cell.Key), hexRadius * 0.9f); // Draw hex cells
         }
     }

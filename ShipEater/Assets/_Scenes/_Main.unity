@@ -499,6 +499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hull
       objectReference: {fileID: 0}
+    - target: {fileID: 1302859669087300846, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
+      propertyPath: shipLayerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 1669493819913270377, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -13,11 +13,19 @@ public class DebrisAttachment : MonoBehaviour
     private bool isBeingPulled = false;
     private bool isAttached = false;
     private float detectionRange; // Randomized detection range for this debris
+    private CircleCollider2D circleCollider; // Reference to the CircleCollider2D
 
     void Start()
     {
         // Set a random detection range within the defined min and max values
         detectionRange = Random.Range(minDetectionRange, maxDetectionRange);
+
+        // Adjust the CircleCollider2D radius to match the detection range
+        circleCollider = GetComponent<CircleCollider2D>();
+        if (circleCollider != null)
+        {
+            circleCollider.radius = detectionRange;
+        }
 
         // Get the reference to the ship's grid system
         shipGridSystem = FindObjectOfType<ShipHexGridSystem>();
@@ -58,7 +66,14 @@ public class DebrisAttachment : MonoBehaviour
     {
         isBeingPulled = false;
         isAttached = true;
-        shipGridSystem.OccupyCell(targetGridPosition); // Mark the grid cell as occupied
+
+        // Change the debris layer to "Player" (make sure you have a layer named "Player")
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
+        // Mark the grid cell as occupied and expand the grid
+        shipGridSystem.MarkCellAsOccupied(targetGridPosition);
+
+        // Attach the debris to the ship
         transform.SetParent(shipTransform); // Make the debris a child of the ship
         lineRenderer.enabled = false; // Disable the LineRenderer after attaching
     }
@@ -68,16 +83,11 @@ public class DebrisAttachment : MonoBehaviour
         if (other.CompareTag("Player") && !isBeingPulled && !isAttached)
         {
             shipTransform = other.transform;
+            targetGridPosition = shipGridSystem.FindNearestEmptyCell(transform.position);
+            isBeingPulled = true;
 
-            // Check if the player ship is within the detection range
-            if (Vector3.Distance(transform.position, shipTransform.position) <= detectionRange)
-            {
-                targetGridPosition = shipGridSystem.FindNearestEmptyCell(transform.position);
-                isBeingPulled = true;
-
-                // Enable the LineRenderer when pulling starts
-                lineRenderer.enabled = true;
-            }
+            // Enable the LineRenderer when pulling starts
+            lineRenderer.enabled = true;
         }
     }
 

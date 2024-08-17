@@ -176,4 +176,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd95125c72aaeac4e99aeec311a156fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexRadius: 0.5
+  hexRadius: 0.4
