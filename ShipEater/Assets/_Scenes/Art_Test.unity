@@ -818,18 +818,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1302859669087300846, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
-      propertyPath: hexRadius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1669493819913270377, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6817059
-      objectReference: {fileID: 0}
-    - target: {fileID: 1669493819913270377, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.42158225
-      objectReference: {fileID: 0}
     - target: {fileID: 1669493819913270377, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.1111
