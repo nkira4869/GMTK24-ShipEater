@@ -4,29 +4,40 @@ public class Debris : MonoBehaviour
 {
     public float detectionRadius = 5f; // The detection radius for the ship
     public float pullSpeed = 2f; // The speed at which the debris is pulled towards the ship
-    public LineRenderer lineRenderer; // The Line Renderer for the tractor beam
 
     private Transform shipTransform;
     private bool isBeingPulled = false;
+    private LineRenderer lineRenderer;
 
     void Start()
     {
-        // Ensure the Line Renderer is set up
-        if (lineRenderer == null)
-        {
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.yellow;
-            lineRenderer.endColor = Color.yellow;
-        }
+        // Initialize and set up the Line Renderer
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
 
-        lineRenderer.enabled = false;
+        // Set the default material and color
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Using a basic sprite shader
+        lineRenderer.startColor = Color.yellow;
+        lineRenderer.endColor = Color.yellow;
+
+        // Set other line renderer properties as needed
+        lineRenderer.positionCount = 2; // Two points: start and end
+        lineRenderer.enabled = false; // Start with it disabled until we need it
     }
 
     void Update()
     {
+        // Detect the player ship within the detection radius
+        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, detectionRadius, LayerMask.GetMask("Player"));
+
+        if (playerCollider != null && !isBeingPulled)
+        {
+            // Start pulling if the player is detected and we're not already pulling
+            shipTransform = playerCollider.transform;
+            isBeingPulled = true;
+        }
+
         if (isBeingPulled && shipTransform != null)
         {
             // Enable and update the line renderer
@@ -52,25 +63,6 @@ public class Debris : MonoBehaviour
         GetComponent<Rigidbody2D>().isKinematic = true;
         lineRenderer.enabled = false; // Disable the line renderer after attaching
         isBeingPulled = false; // Stop the pulling process
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) // Assuming the ship is tagged as "Player"
-        {
-            shipTransform = other.transform;
-            isBeingPulled = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            // Stop pulling if the ship leaves the detection radius
-            isBeingPulled = false;
-            lineRenderer.enabled = false;
-        }
     }
 
     // Optional: Visualize the detection radius in the editor
