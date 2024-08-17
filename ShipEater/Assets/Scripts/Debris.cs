@@ -8,6 +8,8 @@ public class Debris : MonoBehaviour
     private Transform shipTransform;
     private bool isBeingPulled = false;
     private LineRenderer lineRenderer;
+    private Vector3 attachmentPoint; // The point where the debris will attach to the ship
+    private bool isAttached = false;
 
     void Start()
     {
@@ -15,14 +17,9 @@ public class Debris : MonoBehaviour
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
-
-        // Set the default material and color
         lineRenderer.material = new Material(Shader.Find("Sprites/Default")); // Using a basic sprite shader
         lineRenderer.startColor = Color.yellow;
         lineRenderer.endColor = Color.yellow;
-
-        // Set other line renderer properties as needed
-        lineRenderer.positionCount = 2; // Two points: start and end
         lineRenderer.enabled = false; // Start with it disabled until we need it
     }
 
@@ -31,14 +28,14 @@ public class Debris : MonoBehaviour
         // Detect the player ship within the detection radius
         Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, detectionRadius, LayerMask.GetMask("Player"));
 
-        if (playerCollider != null && !isBeingPulled)
+        if (playerCollider != null && !isBeingPulled && !isAttached)
         {
-            // Start pulling if the player is detected and we're not already pulling
+            // Start pulling if the player is detected and we're not already pulling or attached
             shipTransform = playerCollider.transform;
             isBeingPulled = true;
         }
 
-        if (isBeingPulled && shipTransform != null)
+        if (isBeingPulled && shipTransform != null && !isAttached)
         {
             // Enable and update the line renderer
             lineRenderer.enabled = true;
@@ -48,21 +45,34 @@ public class Debris : MonoBehaviour
             // Pull the debris towards the ship
             transform.position = Vector3.MoveTowards(transform.position, shipTransform.position, pullSpeed * Time.deltaTime);
 
-            // If the debris is close enough to the ship, "attach" it
+            // If the debris is close enough to the ship, set the contact point for attachment
             if (Vector3.Distance(transform.position, shipTransform.position) < 0.5f)
             {
+                // Calculate the point of contact (this would be the ship's surface closest to the debris)
+                attachmentPoint = transform.position - shipTransform.position;
                 AttachToShip();
             }
+        }
+
+        // If the debris is attached, ensure it maintains its relative position
+        if (isAttached)
+        {
+            transform.position = shipTransform.position + attachmentPoint;
         }
     }
 
     void AttachToShip()
     {
-        // Attach the debris to the ship and stop pulling
+        // Stop pulling and fix the debris to the ship
+        isBeingPulled = false;
+        isAttached = true;
+
+        // Disable the line renderer after attaching
+        lineRenderer.enabled = false;
+
+        // Set the debris to be a child of the ship so it moves with the ship
         transform.SetParent(shipTransform);
-        GetComponent<Rigidbody2D>().isKinematic = true;
-        lineRenderer.enabled = false; // Disable the line renderer after attaching
-        isBeingPulled = false; // Stop the pulling process
+        GetComponent<Rigidbody2D>().isKinematic = true; // Make the debris kinematic after attaching to avoid unintended physics interactions
     }
 
     // Optional: Visualize the detection radius in the editor
