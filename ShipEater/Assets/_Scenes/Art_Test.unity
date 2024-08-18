@@ -2000,7 +2000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1573281426
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2613,7 +2613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1216710739812777721, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1669493819913270377, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2829,13 +2829,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship_Spread
       objectReference: {fileID: 0}
+    - target: {fileID: 1330503261300854384, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.312
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2888,7 +2892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134252693379287474, guid: 49a42b7154876594ead54c43325d8fb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.04
+      value: -1.6200001
       objectReference: {fileID: 0}
     - target: {fileID: 2134252693379287474, guid: 49a42b7154876594ead54c43325d8fb5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2925,6 +2929,10 @@ PrefabInstance:
     - target: {fileID: 8584421158142298899, guid: 49a42b7154876594ead54c43325d8fb5, type: 3}
       propertyPath: m_Name
       value: Seeker
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584421158142298899, guid: 49a42b7154876594ead54c43325d8fb5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3002,7 +3010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4536087716714310028, guid: a495d8fddc5584d4c9b34f1a42a85b78, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.02
+      value: -1.6400001
       objectReference: {fileID: 0}
     - target: {fileID: 4536087716714310028, guid: a495d8fddc5584d4c9b34f1a42a85b78, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3040,6 +3048,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carrier_Spiral
       objectReference: {fileID: 0}
+    - target: {fileID: 4627346325569870298, guid: a495d8fddc5584d4c9b34f1a42a85b78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3059,7 +3071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3768063754608101116, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 3768063754608101116, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3097,6 +3109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
+    - target: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3116,7 +3132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 414414797936181772, guid: 3d612a36fdb25b149b8c05707b2a45c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.02
+      value: -1.6400001
       objectReference: {fileID: 0}
     - target: {fileID: 414414797936181772, guid: 3d612a36fdb25b149b8c05707b2a45c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3154,6 +3170,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carrier_Wave
       objectReference: {fileID: 0}
+    - target: {fileID: 8563568467058663103, guid: 3d612a36fdb25b149b8c05707b2a45c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3173,7 +3193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 836863461150205401, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 836863461150205401, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3211,6 +3231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship_Random
       objectReference: {fileID: 0}
+    - target: {fileID: 3237927871564184166, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3226,7 +3250,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7462319060048038919, guid: 39b3bcf39e929694cb2a4634bcf41aab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7462319060048038919, guid: 39b3bcf39e929694cb2a4634bcf41aab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3268,6 +3292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Satelite
       objectReference: {fileID: 0}
+    - target: {fileID: 8424583683725722935, guid: 39b3bcf39e929694cb2a4634bcf41aab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3287,7 +3315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 579864933949810515, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 579864933949810515, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3325,6 +3353,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Starship_Burst
       objectReference: {fileID: 0}
+    - target: {fileID: 5317525865268244087, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3344,7 +3376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2762399920899451229, guid: decf144bd20029544beac7950b9a5370, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.66
       objectReference: {fileID: 0}
     - target: {fileID: 2762399920899451229, guid: decf144bd20029544beac7950b9a5370, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3381,6 +3413,10 @@ PrefabInstance:
     - target: {fileID: 5747097113439088330, guid: decf144bd20029544beac7950b9a5370, type: 3}
       propertyPath: m_Name
       value: Gunship
+      objectReference: {fileID: 0}
+    - target: {fileID: 5747097113439088330, guid: decf144bd20029544beac7950b9a5370, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
