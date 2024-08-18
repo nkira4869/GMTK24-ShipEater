@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // Handle enemy movement (simple downward movement for this example)
-        transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
+        transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
     }
 
     // Method to handle hit animation
