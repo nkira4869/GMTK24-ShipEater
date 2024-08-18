@@ -20,14 +20,14 @@ public class PlayerController : MonoBehaviour
     // Method to apply a horizontal speed modifier
     public void ApplyHorizontalSpeedModifier(float modifier)
     {
-        horizontalSpeed *= modifier;
+        horizontalSpeed += (horizontalSpeed * modifier) / 100;
         Debug.Log($"New Horizontal Speed: {horizontalSpeed}");
     }
 
     // Method to apply a vertical speed modifier
     public void ApplyVerticalSpeedModifier(float modifier)
     {
-        verticalSpeed *= modifier;
+        verticalSpeed += (verticalSpeed * modifier) / 100;
         Debug.Log($"New Vertical Speed: {verticalSpeed}");
     }
 }
