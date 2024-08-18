@@ -13,6 +13,7 @@ public class HullManager : MonoBehaviour
     public int currentLevel = 1;
     public int levelUpThreshold = 5;
     public float hexRadiusExpansionAmount = 0.5f;
+    public float scaleUpAmount = 0.1f; // Amount to scale the hull during level up
     public int immuneAttachmentsCount = 2;
 
     void Start()
@@ -22,13 +23,11 @@ public class HullManager : MonoBehaviour
             hullHealth = gameObject.GetComponent<Health>();
         }
 
-        // Ensure the PlayerController is assigned
         if (playerController == null)
         {
             playerController = GetComponent<PlayerController>();
         }
 
-        // Subscribe to health events
         hullHealth.onHealthChanged += OnHealthChanged;
         hullHealth.onDeath += OnHullDestroyed;
     }
@@ -44,14 +43,12 @@ public class HullManager : MonoBehaviour
         }
     }
 
-    // Method to apply a health modifier 
     public void ApplyHealthModifier(float modifier)
     {
         hullHealth.maxHealth += modifier;
         hullHealth.currentHealth = Mathf.Clamp(hullHealth.currentHealth, 0, hullHealth.maxHealth);
     }
 
-    // Method to apply a speed modifier to both horizontal and vertical speeds
     public void ApplySpeedModifier(float modifier)
     {
         if (playerController != null)
@@ -75,7 +72,7 @@ public class HullManager : MonoBehaviour
             attachment.MakeImmuneToDamage();
         }
 
-        ExpandGridRadius();
+        ExpandGridRadiusAndScaleHull();
         Debug.Log($"Hull leveled up to level {currentLevel}. {immuneAttachmentsCount} attachments are now immune to damage.");
     }
 
@@ -85,13 +82,21 @@ public class HullManager : MonoBehaviour
         return allAttachments.GetRange(0, Mathf.Min(count, allAttachments.Count));
     }
 
-    void ExpandGridRadius()
+    void ExpandGridRadiusAndScaleHull()
     {
+        // Expand the hex grid radius
         hexGridSystem.IncreaseHexRadius(hexRadiusExpansionAmount);
+
+        // Scale the hull itself
+        Vector3 scaleIncrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
+        transform.localScale += scaleIncrease;
+
+        // Normalize the scale of each attachment to prevent exponential growth
         foreach (var attachment in attachments)
         {
+            attachment.transform.localScale = Vector3.one; // Reset the attachment scale to (1,1,1)
             Vector3 newPosition = hexGridSystem.GetWorldPosition(attachment.gridPosition);
-            attachment.transform.position = newPosition;
+            attachment.transform.position = newPosition; // Reposition attachment according to the expanded grid
         }
     }
 

@@ -63,6 +63,8 @@ public class EnemyWaveSpawner : MonoBehaviour
         GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         activeEnemies.Add(spawnedEnemy);
 
+        spawnedEnemy.transform.rotation = Quaternion.Euler(0f,0f,180f);
+
         // Subscribe to the enemy's death event (assuming an Enemy script handles this)
         spawnedEnemy.GetComponent<Health>().onDeath += () => OnEnemyDeath(spawnedEnemy);
     }

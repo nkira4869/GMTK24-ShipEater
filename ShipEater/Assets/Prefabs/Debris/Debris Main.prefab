@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7166664153501990482}
   - component: {fileID: 8473610146815191864}
   - component: {fileID: 804624878510980494}
+  - component: {fileID: 8668801346149258725}
   - component: {fileID: 5281402069897811612}
   - component: {fileID: 1237361982093045852}
   m_Layer: 7
@@ -134,6 +135,20 @@ MonoBehaviour:
   healthModifier: 1.1
   speedModifier: 1.1
   bulletPatternPrefab: {fileID: 0}
+--- !u!114 &8668801346149258725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086905229308165108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3527d99fd6a879c4b82d11e8c05ab6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!58 &5281402069897811612
 CircleCollider2D:
   m_ObjectHideFlags: 0

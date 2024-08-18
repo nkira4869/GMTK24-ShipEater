@@ -4,6 +4,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f; // Maximum health
     public float currentHealth;
+    private bool isImmune = false; // Track whether the object is immune to damage
 
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged; // Event to notify when health changes
@@ -19,6 +20,8 @@ public class Health : MonoBehaviour
     // Method to apply damage
     public void TakeDamage(float damage)
     {
+        if (isImmune) return; // Do nothing if the object is immune to damage
+
         currentHealth -= damage;
         onHealthChanged?.Invoke(currentHealth, maxHealth); // Notify listeners about the health change
 
@@ -26,6 +29,12 @@ public class Health : MonoBehaviour
         {
             Die();
         }
+    }
+
+    // Method to set immunity status
+    public void SetImmune(bool immuneStatus)
+    {
+        isImmune = immuneStatus;
     }
 
     // Method to heal or restore health
