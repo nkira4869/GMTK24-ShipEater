@@ -1,28 +1,9 @@
 using UnityEngine;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
-public class ReadOnlyAttribute : PropertyAttribute { }
-
-#if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-public class ReadOnlyDrawer : PropertyDrawer
-{
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-    {
-        GUI.enabled = false; // Disable the field
-        EditorGUI.PropertyField(position, property, label, true);
-        GUI.enabled = true; // Enable it back
-    }
-}
-#endif
-
 public class Health : MonoBehaviour
 {
     public float maxHealth = 100f; // Maximum health
-    [ReadOnly] private float currentHealth;
+    public float currentHealth;
 
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged; // Event to notify when health changes

@@ -16,4 +16,18 @@ public class PlayerController : MonoBehaviour
         // Move the player based on input, with separate speeds for each axis
         transform.position += new Vector3(movementInput.x * horizontalSpeed, movementInput.y * verticalSpeed, 0f) * Time.deltaTime;
     }
+
+    // Method to apply a horizontal speed modifier
+    public void ApplyHorizontalSpeedModifier(float modifier)
+    {
+        horizontalSpeed *= modifier;
+        Debug.Log($"New Horizontal Speed: {horizontalSpeed}");
+    }
+
+    // Method to apply a vertical speed modifier
+    public void ApplyVerticalSpeedModifier(float modifier)
+    {
+        verticalSpeed *= modifier;
+        Debug.Log($"New Vertical Speed: {verticalSpeed}");
+    }
 }
