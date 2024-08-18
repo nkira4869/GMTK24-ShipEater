@@ -7,13 +7,19 @@ public class DebrisAttachment : MonoBehaviour
     public float maxDetectionRange = 5f; // Maximum detection range
     public LineRenderer lineRenderer; // LineRenderer for visualizing the pull
 
+    // New Variables
+    public float healthModifier = 1.1f; // Health modifier (multiplicative)
+    public float speedModifier = 0.5f; // Speed modifier (additive)
+    public GameObject bulletPatternPrefab; // Reference to a bullet pattern that will be activated on attachment
+
     private ShipHexGridSystem shipGridSystem;
+    private HullManager hullManager;
     private Transform shipTransform;
     private Vector2Int targetGridPosition;
     private bool isBeingPulled = false;
     private bool isAttached = false;
     private float detectionRange; // Randomized detection range for this debris
-    private CircleCollider2D circleCollider; // Reference to the CircleCollider2D
+    private CircleCollider2D circleCollider;
 
     void Start()
     {
@@ -29,6 +35,7 @@ public class DebrisAttachment : MonoBehaviour
 
         // Get the reference to the ship's grid system
         shipGridSystem = FindObjectOfType<ShipHexGridSystem>();
+        hullManager = FindObjectOfType<HullManager>();
 
         // Initialize the LineRenderer if not already assigned
         if (lineRenderer == null)
@@ -47,12 +54,12 @@ public class DebrisAttachment : MonoBehaviour
     {
         if (isBeingPulled && !isAttached)
         {
-            Vector3 targetWorldPosition = shipGridSystem.GetWorldPosition(targetGridPosition); // Get world position of the target grid cell
+            Vector3 targetWorldPosition = shipGridSystem.GetWorldPosition(targetGridPosition);
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, pullSpeed * Time.deltaTime);
 
             // Update the LineRenderer positions
-            lineRenderer.SetPosition(0, transform.position); // Start point at the debris position
-            lineRenderer.SetPosition(1, shipTransform.position); // End point at the ship's position
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, shipTransform.position);
 
             // Check if the debris has reached the target grid cell
             if (Vector3.Distance(transform.position, targetWorldPosition) < 0.1f)
@@ -67,24 +74,41 @@ public class DebrisAttachment : MonoBehaviour
         isBeingPulled = false;
         isAttached = true;
 
-        // Change the debris layer to "Player" (make sure you have a layer named "Player")
+        // Change the debris layer to "Player"
         gameObject.layer = LayerMask.NameToLayer("Player");
         gameObject.tag = "Player";
 
         // Mark the grid cell as occupied and expand the grid
         shipGridSystem.MarkCellAsOccupied(targetGridPosition);
-
-        // Remove the cell from the reserved list
         shipGridSystem.RemoveReservedCell(targetGridPosition);
 
         circleCollider.radius = 0.2f;
 
         // Attach the debris to the ship
-        transform.SetParent(shipTransform); // Make the debris a child of the ship
-        lineRenderer.enabled = false; // Disable the LineRenderer after attaching
+        transform.SetParent(shipTransform);
+        lineRenderer.enabled = false;
 
         // Stop the debris movement when attached
         GetComponent<DebrisMovement>().AttachToShip();
+
+        // Dynamically add the Attachment script and register it with the HullManager
+        if (hullManager != null)
+        {
+            Attachment attachment = gameObject.AddComponent<Attachment>();
+            attachment.gridPosition = targetGridPosition;
+            hullManager.AddAttachment(attachment);
+
+            // Apply health and speed modifiers
+            hullManager.ApplyHealthModifier(healthModifier);
+            hullManager.ApplySpeedModifier(speedModifier);
+        }
+
+        // Activate the bullet pattern if one is assigned
+        if (bulletPatternPrefab != null)
+        {
+            GameObject bulletPattern = Instantiate(bulletPatternPrefab, shipTransform);
+            bulletPattern.GetComponent<Shooter>().bulletPrefab = hullManager.defaultBulletPrefab;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

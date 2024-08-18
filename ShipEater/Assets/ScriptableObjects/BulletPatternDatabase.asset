@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f909f027a95d456479b43a8d3d3901c1, type: 3}
+  m_Name: BulletPatternDatabase
+  m_EditorClassIdentifier: 
+  bulletPatterns:
+  - patternName: Burst Pattern
+    patternPrefab: {fileID: 5982669445102839824, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+  - patternName: Circular
+    patternPrefab: {fileID: 1333511603929679182, guid: 112ec451b0b7cd542aaeb40489afe3c5, type: 3}
+  - patternName: Concentric Circles
+    patternPrefab: {fileID: 5784858517579793752, guid: 46bf907e5555d754fa07bf4a36a2ca9c, type: 3}
+  - patternName: Random Spray
+    patternPrefab: {fileID: 759629311498337888, guid: fee413764562e2d40b587ddc5170fef0, type: 3}
+  - patternName: Single Line
+    patternPrefab: {fileID: 6438567452725284646, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
+  - patternName: Spiral Pattern
+    patternPrefab: {fileID: 3610478779583534790, guid: 28d13ace6bc787049a65c7670165fff6, type: 3}
+  - patternName: Spread
+    patternPrefab: {fileID: 4448187490975704874, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
+  - patternName: Wave Pattern
+    patternPrefab: {fileID: 5509102679725060510, guid: 90d895dbb706bc24f99be0718f6b2457, type: 3}

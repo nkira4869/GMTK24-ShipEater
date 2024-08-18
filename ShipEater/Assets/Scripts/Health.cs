@@ -3,7 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float maxHealth = 100f; // Maximum health
-    private float currentHealth;
+    public float currentHealth;
 
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged; // Event to notify when health changes

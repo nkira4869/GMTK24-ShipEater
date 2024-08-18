@@ -23,16 +23,13 @@ public class Bullet : MonoBehaviour
         // Check if the collided object is on the target layers
         if (((1 << other.gameObject.layer) & targetLayers) != 0)
         {
-            // Optionally, you can check for a specific tag as well
-            if (other.CompareTag("TargetTag") || string.IsNullOrEmpty("TargetTag"))
+            Debug.Log("Hit" + other.name);
+            // Apply damage if the object has a Health component
+            Health health = other.GetComponent<Health>();
+            if (health != null)
             {
-                // Apply damage if the object has a Health component
-                Health health = other.GetComponent<Health>();
-                if (health != null)
-                {
-                    health.TakeDamage(damage);
-                    Destroy(gameObject); // Destroy the bullet after hitting an object
-                }
+                health.TakeDamage(damage);
+                Destroy(gameObject); // Destroy the bullet after hitting an object
             }
         }
     }
