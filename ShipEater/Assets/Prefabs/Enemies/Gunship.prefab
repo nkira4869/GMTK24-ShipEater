@@ -53,9 +53,10 @@ MonoBehaviour:
   bulletDamage: 20
   health: 100
   movementSpeed: 2
-  debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
+  debrisPrefab: {fileID: 1553161575676087173, guid: 2101be64463e28741894453e26d7e366, type: 3}
   canDropDebris: 1
   animator: {fileID: 0}
+  lifespan: 30
 --- !u!212 &8541712553848356930
 SpriteRenderer:
   m_ObjectHideFlags: 0

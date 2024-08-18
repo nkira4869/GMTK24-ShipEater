@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 11538312bbb1b274b9a2ebc3bac6534e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15955c9b6fffd2a47ae5442c7513b362, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -216,6 +216,7 @@ MonoBehaviour:
   currentLevel: 1
   levelUpThreshold: 10
   hexRadiusExpansionAmount: 0.5
+  scaleUpAmount: 0.1
   immuneAttachmentsCount: 7
 --- !u!1001 &233786882212002490
 PrefabInstance:

@@ -119,6 +119,7 @@ MonoBehaviour:
   debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
   canDropDebris: 1
   animator: {fileID: 0}
+  lifespan: 30
 --- !u!212 &8528910877431302137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -263,6 +264,10 @@ PrefabInstance:
       propertyPath: shootPoint
       value: 
       objectReference: {fileID: 1650919323983889652}
+    - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
     - target: {fileID: 6336957526831063888, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.06
@@ -336,6 +341,10 @@ PrefabInstance:
       propertyPath: shootPoint
       value: 
       objectReference: {fileID: 3773679155346759279}
+    - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
     - target: {fileID: 6336957526831063888, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

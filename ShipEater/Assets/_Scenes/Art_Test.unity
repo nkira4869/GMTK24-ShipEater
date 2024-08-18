@@ -2827,7 +2827,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1330503261300854384, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_Name
-      value: Starship_Spread
+      value: Starship_Wave
       objectReference: {fileID: 0}
     - target: {fileID: 1330503261300854384, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_IsActive
@@ -2835,11 +2835,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3189,11 +3189,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 836863461150205401, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.405
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 836863461150205401, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 836863461150205401, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3311,11 +3311,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 579864933949810515, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.422
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 579864933949810515, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 579864933949810515, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3351,7 +3351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5317525865268244087, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_Name
-      value: Starship_Burst
+      value: Starship_Spread
       objectReference: {fileID: 0}
     - target: {fileID: 5317525865268244087, guid: 5142d94b7787ea84e80af072d28f4937, type: 3}
       propertyPath: m_IsActive
@@ -3376,7 +3376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2762399920899451229, guid: decf144bd20029544beac7950b9a5370, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.66
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2762399920899451229, guid: decf144bd20029544beac7950b9a5370, type: 3}
       propertyPath: m_LocalPosition.z
