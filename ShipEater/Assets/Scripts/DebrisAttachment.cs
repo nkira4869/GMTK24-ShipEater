@@ -8,6 +8,7 @@ public class DebrisAttachment : MonoBehaviour
     public LineRenderer lineRenderer; // LineRenderer for visualizing the pull
 
     private ShipHexGridSystem shipGridSystem;
+    private HullManager hullManager; // Reference to the HullManager
     private Transform shipTransform;
     private Vector2Int targetGridPosition;
     private bool isBeingPulled = false;
@@ -29,6 +30,7 @@ public class DebrisAttachment : MonoBehaviour
 
         // Get the reference to the ship's grid system
         shipGridSystem = FindObjectOfType<ShipHexGridSystem>();
+        hullManager = FindObjectOfType<HullManager>(); // Get reference to HullManager
 
         // Initialize the LineRenderer if not already assigned
         if (lineRenderer == null)
@@ -85,6 +87,14 @@ public class DebrisAttachment : MonoBehaviour
 
         // Stop the debris movement when attached
         GetComponent<DebrisMovement>().AttachToShip();
+
+        // Dynamically add the Attachment script and register it with the HullManager
+        if (hullManager != null)
+        {
+            Attachment attachment = gameObject.AddComponent<Attachment>();
+            attachment.gridPosition = targetGridPosition; // Set the position of the attachment on the grid
+            hullManager.AddAttachment(attachment); // Register the attachment with the HullManager
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

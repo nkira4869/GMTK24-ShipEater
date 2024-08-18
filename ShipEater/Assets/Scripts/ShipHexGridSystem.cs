@@ -30,6 +30,10 @@ public class ShipHexGridSystem : MonoBehaviour
     {
         UpdateGridCellStatus();
     }
+    public void IncreaseHexRadius(float amount)
+    {
+        hexRadius += amount;
+    }
 
     // Converts axial grid coordinates to world position
     public Vector3 GetWorldPosition(Vector2Int axialCoords)
