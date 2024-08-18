@@ -19,8 +19,9 @@ public class Enemy : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = enemySprite;
 
         // Add and initialize the health component
-        healthComponent = gameObject.AddComponent<Health>();
+        healthComponent = gameObject.GetComponent<Health>();
         healthComponent.maxHealth = health;
+        healthComponent.currentHealth = health; // Ensure currentHealth is correctly initialized
 
         // Assign the bullet damage to any existing bullet patterns (if manually added)
         var shooters = GetComponentsInChildren<Shooter>();
