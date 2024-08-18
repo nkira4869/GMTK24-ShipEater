@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 2762399920899451229}
   - component: {fileID: 6707023606824207609}
   - component: {fileID: 8541712553848356930}
-  m_Layer: 0
+  - component: {fileID: 3685858841407479382}
+  - component: {fileID: 130225180663053054}
+  - component: {fileID: 2839028365673147370}
+  m_Layer: 8
   m_Name: Gunship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: 2dae5caf1f31b9f4ab5f267e1f4b309e, type: 3}
   bulletDamage: 20
-  health: 200
+  health: 100
   movementSpeed: 2
   debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
   canDropDebris: 1
@@ -105,6 +108,82 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3685858841407479382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747097113439088330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3527d99fd6a879c4b82d11e8c05ab6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+--- !u!70 &130225180663053054
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747097113439088330}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.7, y: 1.16}
+  m_Direction: 0
+--- !u!50 &2839028365673147370
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747097113439088330}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6524637182417620017
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,6 +231,10 @@ PrefabInstance:
       propertyPath: shootPoint
       value: 
       objectReference: {fileID: 600909015804440355}
+    - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
     - target: {fileID: 6336957526831063888, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
