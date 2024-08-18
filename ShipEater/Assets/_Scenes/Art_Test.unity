@@ -2831,7 +2831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1330503261300854384, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2056683508518910042, guid: 9e2a26d01726b7846b5ed00840606f46, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3229,7 +3229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3237927871564184166, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_Name
-      value: Starship_Random
+      value: Starship_Burst
       objectReference: {fileID: 0}
     - target: {fileID: 3237927871564184166, guid: 6305d97857eee7b44850f0e6e0e03a72, type: 3}
       propertyPath: m_IsActive

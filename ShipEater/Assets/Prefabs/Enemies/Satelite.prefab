@@ -93,8 +93,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.75, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3420659225010081467}
   - {fileID: 7385084786533100115}
@@ -119,7 +119,7 @@ MonoBehaviour:
   debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
   canDropDebris: 1
   animator: {fileID: 0}
-  lifespan: 30
+  lifespan: 25
 --- !u!212 &8528910877431302137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -258,7 +258,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: shootPoint
@@ -335,7 +335,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: shootPoint

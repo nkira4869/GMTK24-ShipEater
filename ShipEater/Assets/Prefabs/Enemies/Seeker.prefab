@@ -56,6 +56,7 @@ MonoBehaviour:
   debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
   canDropDebris: 1
   animator: {fileID: 0}
+  lifespan: 40
 --- !u!212 &4061813105239358815
 SpriteRenderer:
   m_ObjectHideFlags: 0
