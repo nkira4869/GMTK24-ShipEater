@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Enemy : MonoBehaviour
     public GameObject debrisPrefab; // Debris prefab to spawn on death
     public bool canDropDebris = false; // Boolean to check if the enemy can drop debris
     public Animator animator; // Reference to the Animator for hit and death animations
+    public float lifespan = 30f;
 
     private Health healthComponent;
 
@@ -33,12 +36,20 @@ public class Enemy : MonoBehaviour
         // Subscribe to the health component's events
         healthComponent.onHealthChanged += OnHit;
         healthComponent.onDeath += OnDeath;
+
+        StartCoroutine(lifespanTrigger());
     }
 
     void Update()
     {
         // Handle enemy movement (simple downward movement for this example)
         transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
+    }
+
+    IEnumerator lifespanTrigger()
+    {
+        yield return new WaitForSeconds(lifespan);
+        healthComponent.Die();
     }
 
     // Method to handle hit animation

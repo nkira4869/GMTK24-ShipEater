@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
     }
 
     // Method called when health reaches zero
-    void Die()
+    public void Die()
     {
         onDeath?.Invoke(); // Notify listeners about the object's death
         Destroy(gameObject); // Destroy the object (or trigger some death logic)
