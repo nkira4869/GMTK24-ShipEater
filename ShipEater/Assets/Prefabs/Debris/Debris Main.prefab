@@ -132,8 +132,8 @@ MonoBehaviour:
   minDetectionRange: 0.5
   maxDetectionRange: 1
   lineRenderer: {fileID: 0}
-  healthModifier: 1.1
-  speedModifier: 1.1
+  healthModifier: 100
+  speedModifier: 0.9
   bulletPatternPrefab: {fileID: 0}
 --- !u!114 &8668801346149258725
 MonoBehaviour:

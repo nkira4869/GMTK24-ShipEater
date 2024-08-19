@@ -108,6 +108,7 @@ public class DebrisAttachment : MonoBehaviour
         {
             GameObject bulletPattern = Instantiate(bulletPatternPrefab, shipTransform);
             bulletPattern.GetComponent<Shooter>().bulletPrefab = hullManager.defaultBulletPrefab;
+            bulletPattern.transform.SetParent(this.gameObject.transform);
         }
     }
 
@@ -115,7 +116,7 @@ public class DebrisAttachment : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isBeingPulled && !isAttached)
         {
-            shipTransform = other.transform;
+            shipTransform = hullManager.transform;
             targetGridPosition = shipGridSystem.FindNearestEmptyCell(transform.position);
             isBeingPulled = true;
 

@@ -9,16 +9,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 804624878510980494, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
-      propertyPath: speedModifier
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 804624878510980494, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: bulletPatternPrefab
       value: 
       objectReference: {fileID: 4448187490975704874, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
     - target: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_Name
-      value: Debris_Spred
+      value: Debris_Spread
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalPosition.x
