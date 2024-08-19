@@ -16,17 +16,13 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 5747097113439088330, guid: decf144bd20029544beac7950b9a5370, type: 3}
     count: 2
     spawnRate: 1
-    spawnFromSide: 0
+    spawnFromSide: 1
   - enemyPrefab: {fileID: 8207384274193912634, guid: 6da3edba6cdfc644d9721c48696b06ae, type: 3}
     count: 2
     spawnRate: 1
-    spawnFromSide: 0
+    spawnFromSide: 1
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 6
+    count: 0
     spawnRate: 1
-    spawnFromSide: 0
-  - enemyPrefab: {fileID: 3983210569563288660, guid: 5909ee27de65eb04ca258ff61e84f8c9, type: 3}
-    count: 1
-    spawnRate: 0
-    spawnFromSide: 0
+    spawnFromSide: 1
   intervalBetweenEnemies: 1

@@ -47,6 +47,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7394907568824893633, guid: 502dbae3d06616f48a7405c3a3326a05, type: 3}
   fireRate: 10
   shootPoint: {fileID: 2403080074324995787}
-  waveFrequency: 20
+  waveFrequency: 5
   waveAmplitude: 20
-  bulletCount: 5
+  bulletCount: 2
