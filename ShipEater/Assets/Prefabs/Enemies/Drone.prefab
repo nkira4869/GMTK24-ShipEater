@@ -54,8 +54,16 @@ MonoBehaviour:
   health: 100
   movementSpeed: 3
   debrisPrefab: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
-  canDropDebris: 1
+  canDropDebris: 0
   animator: {fileID: 0}
+  lifespan: 30
+  canStrafe: 1
+  strafeAmount: 0.5
+  strafeSpeed: 2
+  strafePauseMinDuration: 1
+  strafePauseMaxDuration: 3
+  strafeResumeMinDelay: 5
+  strafeResumeMaxDelay: 10
 --- !u!212 &3580345696001103519
 SpriteRenderer:
   m_ObjectHideFlags: 0
