@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267877b4dad205d49b7d1c017b12ec58, type: 3}
+  m_Name: TestLasers
+  m_EditorClassIdentifier: 
+  enemiesToSpawn:
+  - enemyPrefab: {fileID: 683636623231573232, guid: eb59cc3e3229e9145af89ad55ae54625, type: 3}
+    count: 3
+    spawnRate: 0
+    spawnFromSide: 0
+  - enemyPrefab: {fileID: 6897567149863368626, guid: 2714b5bdd4b3f414b8de4d227f9c0544, type: 3}
+    count: 3
+    spawnRate: 0
+    spawnFromSide: 1
+  - enemyPrefab: {fileID: 2198107409119404681, guid: dc826ecf292e29b45ae61d0df2715bdb, type: 3}
+    count: 3
+    spawnRate: 0
+    spawnFromSide: 0
+  intervalBetweenEnemies: 0
