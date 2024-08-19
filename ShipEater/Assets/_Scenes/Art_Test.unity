@@ -3554,6 +3554,13 @@ MonoBehaviour:
   canDropDebris: 1
   animator: {fileID: 0}
   lifespan: 25
+  canStrafe: 1
+  strafeAmount: 0.5
+  strafeSpeed: 2
+  strafePauseMinDuration: 1
+  strafePauseMaxDuration: 3
+  strafeResumeMinDelay: 5
+  strafeResumeMaxDelay: 10
 --- !u!4 &1554596205
 Transform:
   m_ObjectHideFlags: 0
@@ -4825,6 +4832,13 @@ MonoBehaviour:
   canDropDebris: 1
   animator: {fileID: 0}
   lifespan: 25
+  canStrafe: 1
+  strafeAmount: 0.5
+  strafeSpeed: 2
+  strafePauseMinDuration: 1
+  strafePauseMaxDuration: 3
+  strafeResumeMinDelay: 5
+  strafeResumeMaxDelay: 10
 --- !u!4 &2126959446
 Transform:
   m_ObjectHideFlags: 0
@@ -4860,6 +4874,13 @@ MonoBehaviour:
   canDropDebris: 1
   animator: {fileID: 0}
   lifespan: 25
+  canStrafe: 1
+  strafeAmount: 0.5
+  strafeSpeed: 2
+  strafePauseMinDuration: 1
+  strafePauseMaxDuration: 3
+  strafeResumeMinDelay: 5
+  strafeResumeMaxDelay: 10
 --- !u!1001 &951658491959182081
 PrefabInstance:
   m_ObjectHideFlags: 0
