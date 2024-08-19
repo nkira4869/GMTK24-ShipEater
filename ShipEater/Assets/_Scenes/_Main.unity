@@ -419,7 +419,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - {fileID: 11400000, guid: 7d4a90ed0ab94894797297a9afec794f, type: 2}
+  - {fileID: 11400000, guid: 20715b386b405c14e998ecaf2b2d9852, type: 2}
+  - {fileID: 11400000, guid: 24fdb017fc1be5b4cb77948d589be59c, type: 2}
+  - {fileID: 11400000, guid: 9c73fb5fad2b67b45a605fbcd899cacf, type: 2}
+  - {fileID: 11400000, guid: 66623dff6be0e6947859680e06e0fd63, type: 2}
+  - {fileID: 11400000, guid: 1f058980b89a7f54dabddfa11e3f8c2e, type: 2}
+  - {fileID: 11400000, guid: 72c9e46fe47ee0142af31ca2e7403cb2, type: 2}
+  - {fileID: 11400000, guid: 1096e1ff14e74c64ebbae6e5b08cb5b0, type: 2}
   mainCamera: {fileID: 519420031}
   despawnOffset: 5
   spawnOffset: 3
@@ -767,10 +773,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4932371339949071340, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5690763429235459269, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 2051112368782080434, guid: 827d8f71e6bdf724ca2e31bf7dbb599e, type: 3}
+      objectReference: {fileID: 5052030103984927884, guid: 1414378dd86572b41a1bffdb09676722, type: 3}
     - target: {fileID: 6513596022733763996, guid: 6435a61c56344ba40a98b475a49fc43c, type: 3}
       propertyPath: m_IsActive
       value: 1

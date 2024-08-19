@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 267877b4dad205d49b7d1c017b12ec58, type: 3}
-  m_Name: Desert_Wave1
+  m_Name: Desert_Wave_Repeatable
   m_EditorClassIdentifier: 
   enemiesToSpawn:
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 1
-    spawnRate: 1
+    count: 5
+    spawnRate: 0
     spawnFromSide: 0
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 2
-    spawnRate: 2
+    count: 3
+    spawnRate: 0
     spawnFromSide: 0
-  intervalBetweenEnemies: 5
+  - enemyPrefab: {fileID: 8207384274193912634, guid: 6da3edba6cdfc644d9721c48696b06ae, type: 3}
+    count: 1
+    spawnRate: 0
+    spawnFromSide: 0
+  intervalBetweenEnemies: 1
