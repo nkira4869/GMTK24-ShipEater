@@ -28,4 +28,14 @@ public class Attachment : MonoBehaviour
             healthComponent.SetImmune(isImmuneToDamage); // Update the Health component
         }
     }
+
+    // Remove immunity from the attachment
+    public void RemoveImmunity()
+    {
+        isImmuneToDamage = false;
+        if (healthComponent != null)
+        {
+            healthComponent.SetImmune(isImmuneToDamage); // Update the Health component
+        }
+    }
 }

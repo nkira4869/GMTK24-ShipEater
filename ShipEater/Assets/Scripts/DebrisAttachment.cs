@@ -109,6 +109,7 @@ public class DebrisAttachment : MonoBehaviour
             GameObject bulletPattern = Instantiate(bulletPatternPrefab, shipTransform);
             bulletPattern.GetComponent<Shooter>().bulletPrefab = hullManager.defaultBulletPrefab;
             bulletPattern.transform.SetParent(this.gameObject.transform);
+            bulletPattern.GetComponent<Shooter>().shootPoint = this.gameObject.transform;
         }
     }
 

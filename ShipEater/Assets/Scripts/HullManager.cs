@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class HullManager : MonoBehaviour
     public GameObject defaultBulletPrefab;
     public PlayerController playerController;
     private List<Attachment> attachments = new List<Attachment>();
+    private Camera mainCamera;
 
     [Header("Leveling System")]
     public List<LevelConfig> levelConfigs; // List of level configurations
@@ -28,8 +30,10 @@ public class HullManager : MonoBehaviour
             playerController = GetComponent<PlayerController>();
         }
 
+        mainCamera = Camera.main;
         hullHealth.onHealthChanged += OnHealthChanged;
         hullHealth.onDeath += OnHullDestroyed;
+
     }
 
     public void AddAttachment(Attachment newAttachment)
@@ -37,7 +41,16 @@ public class HullManager : MonoBehaviour
         attachments.Add(newAttachment);
         newAttachment.Attach(hexGridSystem);
 
-        CheckForLevelUp();
+        CheckForLevelChange();
+    }
+
+    public void RemoveAttachment(Attachment attachmentToRemove)
+    {
+        if (attachments.Contains(attachmentToRemove))
+        {
+            attachments.Remove(attachmentToRemove);
+            CheckForLevelChange();
+        }
     }
 
     public void ApplyHealthModifier(float modifier)
@@ -57,47 +70,69 @@ public class HullManager : MonoBehaviour
 
     void OnHealthChanged(float currentHealth, float maxHealth)
     {
-        Debug.Log($"Hull Health Changed: {currentHealth}/{maxHealth}");
+        //Debug.Log($"Hull Health Changed: {currentHealth}/{maxHealth}");
     }
 
-    void CheckForLevelUp()
+    void CheckForLevelChange()
     {
-        // Make sure we have a level configuration for the current level
         if (currentLevel - 1 < levelConfigs.Count)
         {
-            int nextLevelThreshold = levelConfigs[currentLevel - 1].levelUpThreshold;
+            int currentLevelThreshold = levelConfigs[currentLevel - 1].levelUpThreshold;
 
-            // If the current attachment count meets or exceeds the next level's threshold, level up
-            if (attachments.Count >= nextLevelThreshold)
+            if (attachments.Count >= currentLevelThreshold && currentLevel < levelConfigs.Count)
             {
                 LevelUp();
+            }
+            else if (currentLevel > 1 && attachments.Count < levelConfigs[currentLevel - 2].levelUpThreshold)
+            {
+                LevelDown();
             }
         }
     }
 
     void LevelUp()
     {
-        // Increase the current level
         currentLevel++;
 
         if (currentLevel - 1 < levelConfigs.Count)
         {
-            // Get the configuration for the new level
             LevelConfig config = levelConfigs[currentLevel - 1];
-
-            // Make the specified number of attachments immune
             List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, config.immuneAttachmentsCount);
+
             foreach (var attachment in closestAttachments)
             {
                 attachment.MakeImmuneToDamage();
             }
 
             ExpandGridRadiusAndScaleHull();
+            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
             Debug.Log($"Hull leveled up to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
         }
-        else
+    }
+
+    void LevelDown()
+    {
+        currentLevel--;
+
+        if (currentLevel - 1 < levelConfigs.Count && currentLevel > 0)
         {
-            Debug.Log("No more level configurations available.");
+            LevelConfig config = levelConfigs[currentLevel - 1];
+
+            foreach (var attachment in attachments)
+            {
+                attachment.RemoveImmunity();
+            }
+
+            List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, config.immuneAttachmentsCount);
+
+            foreach (var attachment in closestAttachments)
+            {
+                attachment.MakeImmuneToDamage();
+            }
+
+            ShrinkGridRadiusAndScaleHull();
+            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
+            Debug.Log($"Hull leveled down to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
         }
     }
 
@@ -116,12 +151,26 @@ public class HullManager : MonoBehaviour
 
         foreach (var attachment in attachments)
         {
-            attachment.transform.localScale = Vector3.one; // Reset the attachment scale to (1,1,1)
+            attachment.transform.localScale = Vector3.one;
             Vector3 newPosition = hexGridSystem.GetWorldPosition(attachment.gridPosition);
-            attachment.transform.position = newPosition; // Reposition attachment according to the expanded grid
+            attachment.transform.position = newPosition;
         }
     }
 
+    void ShrinkGridRadiusAndScaleHull()
+    {
+        hexGridSystem.IncreaseHexRadius(-hexRadiusExpansionAmount);
+
+        Vector3 scaleDecrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
+        transform.localScale -= scaleDecrease;
+
+        foreach (var attachment in attachments)
+        {
+            attachment.transform.localScale = Vector3.one;
+            Vector3 newPosition = hexGridSystem.GetWorldPosition(attachment.gridPosition);
+            attachment.transform.position = newPosition;
+        }
+    }
     void OnHullDestroyed()
     {
         Debug.Log("Hull Destroyed!");

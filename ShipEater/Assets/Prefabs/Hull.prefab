@@ -213,11 +213,15 @@ MonoBehaviour:
   hexGridSystem: {fileID: 1302859669087300846}
   defaultBulletPrefab: {fileID: 5052030103984927884, guid: 1414378dd86572b41a1bffdb09676722, type: 3}
   playerController: {fileID: 0}
-  currentLevel: 1
-  levelUpThreshold: 10
-  hexRadiusExpansionAmount: 0.5
-  scaleUpAmount: 0.1
-  immuneAttachmentsCount: 7
+  levelConfigs:
+  - levelUpThreshold: 10
+    immuneAttachmentsCount: 7
+  - levelUpThreshold: 20
+    immuneAttachmentsCount: 15
+  - levelUpThreshold: 30
+    immuneAttachmentsCount: 24
+  hexRadiusExpansionAmount: 0.25
+  scaleUpAmount: 0.5
 --- !u!1001 &233786882212002490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -226,6 +230,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1669493819913270377}
     m_Modifications:
+    - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: bulletPrefab
       value: 
