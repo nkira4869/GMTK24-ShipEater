@@ -310,7 +310,7 @@ MonoBehaviour:
   boundsGizmoColor: {r: 1, g: 0, b: 0, a: 1}
   minZoom: 5
   maxZoom: 25
-  zoomSpeed: 10
+  zoomSpeed: 0.5
 --- !u!1001 &975056025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyWaves:
-  - {fileID: 11400000, guid: 20715b386b405c14e998ecaf2b2d9852, type: 2}
+  - {fileID: 11400000, guid: ef5cdb70531f94a488ab7980f9acb5d4, type: 2}
   - {fileID: 11400000, guid: 24fdb017fc1be5b4cb77948d589be59c, type: 2}
   - {fileID: 11400000, guid: 9c73fb5fad2b67b45a605fbcd899cacf, type: 2}
   - {fileID: 11400000, guid: 66623dff6be0e6947859680e06e0fd63, type: 2}
@@ -598,6 +598,10 @@ PrefabInstance:
     - target: {fileID: 2139068878754919765, guid: f1028553efbb0b94e9d9994fc94305b4, type: 3}
       propertyPath: m_Name
       value: Background Looper
+      objectReference: {fileID: 0}
+    - target: {fileID: 2514709484013289191, guid: f1028553efbb0b94e9d9994fc94305b4, type: 3}
+      propertyPath: scrollSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5324390384419296417, guid: f1028553efbb0b94e9d9994fc94305b4, type: 3}
       propertyPath: m_LocalPosition.x
