@@ -4,33 +4,37 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Enemy Configuration Variables
-    public Sprite enemySprite; // The sprite to represent the enemy
-    public float bulletDamage = 10f; // Bullet damage value
-    public float health = 100f; // Enemy health
-    public float movementSpeed = 2f; // Enemy movement speed
-    public GameObject debrisPrefab; // Debris prefab to spawn on death
-    public bool canDropDebris = false; // Boolean to check if the enemy can drop debris
-    public Animator animator; // Reference to the Animator for hit and death animations
+    public Sprite enemySprite;
+    public float bulletDamage = 10f;
+    public float health = 100f;
+    public float movementSpeed = 2f;
+    public GameObject debrisPrefab;
+    public bool canDropDebris = false;
+    public Animator animator;
     public float lifespan = 30f;
 
     // Strafing Variables
-    public bool canStrafe = true; // Toggle strafing behavior
-    public float strafeAmount = 0.5f; // How far to strafe left and right
-    public float strafeSpeed = 2f; // Speed of the strafing motion
-    public float strafePauseMinDuration = 1f; // Minimum duration of the pause
-    public float strafePauseMaxDuration = 3f; // Maximum duration of the pause
-    public float strafeResumeMinDelay = 5f; // Minimum time between pauses
-    public float strafeResumeMaxDelay = 10f; // Maximum time between pauses
+    public bool canStrafe = true;
+    public float strafeAmount = 0.5f;
+    public float strafeSpeed = 2f;
+    public float strafePauseMinDuration = 1f;
+    public float strafePauseMaxDuration = 3f;
+    public float strafeResumeMinDelay = 5f;
+    public float strafeResumeMaxDelay = 10f;
 
     private Health healthComponent;
-    private bool isStrafing = true; // Track whether the enemy is currently strafing
-    private float randomStrafeOffset; // Random offset to desynchronize strafing patterns
-    private float strafeDirection; // The direction the enemy strafes in (1 for right, -1 for left)
+    private bool isStrafing = true;
+    private float randomStrafeOffset;
+    private float strafeDirection;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
 
     void Start()
     {
         // Setup the enemy sprite
-        GetComponent<SpriteRenderer>().sprite = enemySprite;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = enemySprite;
+        originalColor = spriteRenderer.color;
 
         // Add and initialize the health component
         healthComponent = gameObject.GetComponent<Health>();
@@ -49,27 +53,21 @@ public class Enemy : MonoBehaviour
         healthComponent.onDeath += OnDeath;
 
         StartCoroutine(lifespanTrigger());
-        StartCoroutine(ManageStrafing()); // Start strafing behavior
+        StartCoroutine(ManageStrafing());
 
-        // Set a random offset to desynchronize strafing patterns
         randomStrafeOffset = Random.Range(0f, Mathf.PI * 2f);
-
-        // Randomize the initial strafe direction
         strafeDirection = Random.value > 0.5f ? 1f : -1f;
     }
 
     void Update()
     {
-        // Handle enemy movement
         MoveEnemy();
     }
 
     void MoveEnemy()
     {
-        // Move forward (simple downward movement for this example)
         transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
 
-        // Apply strafing motion if enabled and strafing is active
         if (canStrafe && isStrafing)
         {
             Strafe();
@@ -78,10 +76,7 @@ public class Enemy : MonoBehaviour
 
     void Strafe()
     {
-        // Calculate strafe position with random offset
         float strafeMovement = Mathf.Sin(Time.time * strafeSpeed + randomStrafeOffset) * strafeAmount * strafeDirection;
-
-        // Apply the strafe movement (side-to-side)
         transform.Translate(Vector3.right * strafeMovement * Time.deltaTime);
     }
 
@@ -95,47 +90,49 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            // Wait for a random duration before pausing strafing
             yield return new WaitForSeconds(Random.Range(strafeResumeMinDelay, strafeResumeMaxDelay));
-
-            // Pause strafing
             isStrafing = false;
-
-            // Wait for the pause duration
             yield return new WaitForSeconds(Random.Range(strafePauseMinDuration, strafePauseMaxDuration));
-
-            // Resume strafing
             isStrafing = true;
         }
     }
 
-    // Method to handle hit animation
+    // Method to handle hit animation with a red flash
     void OnHit(float currentHealth, float maxHealth)
     {
-        // Trigger the hit animation
         if (animator != null)
         {
             animator.SetTrigger("Hit");
         }
+
+        // Trigger the red flash
+        StartCoroutine(FlashRed());
     }
 
-    // Method to handle death animation and behavior
+    IEnumerator FlashRed()
+    {
+        // Change color to red
+        spriteRenderer.color = Color.red;
+
+        // Wait for a short duration
+        yield return new WaitForSeconds(0.1f);
+
+        // Revert back to the original color
+        spriteRenderer.color = originalColor;
+    }
+
     void OnDeath()
     {
-        // Trigger the death animation
         if (animator != null)
         {
             animator.SetTrigger("Death");
         }
 
-        // Check if the enemy can drop debris
         if (canDropDebris && debrisPrefab != null)
         {
-            // Spawn the debris prefab at the enemy's position
             Instantiate(debrisPrefab, transform.position, Quaternion.identity);
         }
 
-        // Destroy the enemy after a delay (to let the death animation play)
-        Destroy(gameObject, 1f); // Adjust the delay based on your death animation length
+        Destroy(gameObject, 1f);
     }
 }
