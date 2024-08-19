@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: 6de6731d7ad72604c94d5d2cab5059d0, type: 3}
   bulletDamage: 1
-  health: 8
+  health: 10
   movementSpeed: 0.5
   debrisPrefab: {fileID: 5086905229308165108, guid: 8551dd0df46b4914fbcaa647219f4445, type: 3}
   canDropDebris: 1

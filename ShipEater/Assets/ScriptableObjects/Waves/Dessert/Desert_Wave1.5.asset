@@ -15,6 +15,6 @@ MonoBehaviour:
   enemiesToSpawn:
   - enemyPrefab: {fileID: 3983210569563288660, guid: 5909ee27de65eb04ca258ff61e84f8c9, type: 3}
     count: 1
-    spawnRate: 0
+    spawnRate: 5
     spawnFromSide: 0
-  intervalBetweenEnemies: 5
+  intervalBetweenEnemies: 10

@@ -52,16 +52,16 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: 2dae5caf1f31b9f4ab5f267e1f4b309e, type: 3}
   bulletDamage: 1
   health: 6
-  movementSpeed: 1
+  movementSpeed: 0.8
   debrisPrefab: {fileID: 1553161575676087173, guid: 2101be64463e28741894453e26d7e366, type: 3}
   canDropDebris: 1
   animator: {fileID: 0}
   lifespan: 20
   canStrafe: 1
-  strafeAmount: 0.5
-  strafeSpeed: 2
-  strafePauseMinDuration: 1
-  strafePauseMaxDuration: 3
+  strafeAmount: 2
+  strafeSpeed: 1.5
+  strafePauseMinDuration: 2
+  strafePauseMaxDuration: 6
   strafeResumeMinDelay: 5
   strafeResumeMaxDelay: 10
 --- !u!212 &8541712553848356930

@@ -58,7 +58,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   lifespan: 30
   canStrafe: 1
-  strafeAmount: 0.5
+  strafeAmount: 1
   strafeSpeed: 1
   strafePauseMinDuration: 1
   strafePauseMaxDuration: 2
@@ -233,7 +233,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: fireRate
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5604506390970859135, guid: fc25362fb6a9fb44a9ddce31878626c5, type: 3}
       propertyPath: shootPoint

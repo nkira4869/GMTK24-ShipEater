@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesToSpawn:
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 5
-    spawnRate: 0
+    count: 18
+    spawnRate: 1
     spawnFromSide: 0
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 3
-    spawnRate: 0
-    spawnFromSide: 0
-  - enemyPrefab: {fileID: 8207384274193912634, guid: 6da3edba6cdfc644d9721c48696b06ae, type: 3}
+    count: 8
+    spawnRate: 1
+    spawnFromSide: 1
+  - enemyPrefab: {fileID: 3983210569563288660, guid: 72bb657d9f3cc7f42ae450734c1d0b68, type: 3}
     count: 1
     spawnRate: 0
     spawnFromSide: 0

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesToSpawn:
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 4
+    count: 1
     spawnRate: 1
-    spawnFromSide: 0
+    spawnFromSide: 1
   - enemyPrefab: {fileID: 8207384274193912634, guid: 6da3edba6cdfc644d9721c48696b06ae, type: 3}
     count: 2
-    spawnRate: 2
+    spawnRate: 1
     spawnFromSide: 0
-  intervalBetweenEnemies: 0
+  intervalBetweenEnemies: 1
