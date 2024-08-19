@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public float movementSpeed = 2f;
     public GameObject debrisPrefab;
     public bool canDropDebris = false;
+    public float debrisDropChancePercent = 50f; // Probability of debris dropping (0.5 = 50% chance)
     public Animator animator;
     public float lifespan = 30f;
 
@@ -144,9 +145,13 @@ public class Enemy : MonoBehaviour
             animator.SetTrigger("Death");
         }
 
+        // Check if debris can drop and roll for the drop chance
         if (canDropDebris && debrisPrefab != null)
         {
-            Instantiate(debrisPrefab, transform.position, Quaternion.identity);
+            if (Random.value <= debrisDropChancePercent/100) // Random.value returns a float between 0 and 1
+            {
+                Instantiate(debrisPrefab, transform.position, Quaternion.identity);
+            }
         }
 
         Destroy(gameObject, 1f);
