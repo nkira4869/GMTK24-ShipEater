@@ -47,5 +47,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9086060395215682456, guid: d9ce23a28c1930c419fa6e5c486bf51a, type: 3}
   fireRate: 1
   shootPoint: {fileID: 4790571262352387437}
-  bulletCount: 5
+  bulletCount: 3
   spreadAngle: 45
