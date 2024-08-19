@@ -5069,6 +5069,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d612a36fdb25b149b8c05707b2a45c0, type: 3}
+--- !u!1001 &6240975091200347810
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271822242743377119, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071253448255439001, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+      propertyPath: m_Name
+      value: SpaceRocket
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
 --- !u!1001 &7013032344535653195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5565,6 +5622,7 @@ SceneRoots:
   - {fileID: 9110603305971767663}
   - {fileID: 5757985182677988516}
   - {fileID: 7827918781219970988}
+  - {fileID: 6240975091200347810}
   - {fileID: 951658491959182081}
   - {fileID: 7987038810833584120}
   - {fileID: 7013032344535653195}
