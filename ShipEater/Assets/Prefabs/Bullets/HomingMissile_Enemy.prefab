@@ -30,7 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 842dd2d8499670f41aedbe6f2b8781e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95689b163c405e24693a67e8834cb1da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,4 +141,4 @@ MonoBehaviour:
     m_Bits: 64
   lifetime: 5
   explosionRadius: 3
-  explosionEffect: {fileID: 0}
+  explosionEffect: {fileID: 9221512423401461711, guid: 4b0c3442ad8400e418223ef8d77778ee, type: 3}
