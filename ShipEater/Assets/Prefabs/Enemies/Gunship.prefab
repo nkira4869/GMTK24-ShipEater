@@ -57,6 +57,13 @@ MonoBehaviour:
   canDropDebris: 1
   animator: {fileID: 0}
   lifespan: 20
+  canStrafe: 1
+  strafeAmount: 0.5
+  strafeSpeed: 2
+  strafePauseMinDuration: 1
+  strafePauseMaxDuration: 3
+  strafeResumeMinDelay: 5
+  strafeResumeMaxDelay: 10
 --- !u!212 &8541712553848356930
 SpriteRenderer:
   m_ObjectHideFlags: 0
