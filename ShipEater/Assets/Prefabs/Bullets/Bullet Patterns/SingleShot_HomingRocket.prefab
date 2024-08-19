@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6336957526831063888}
   - component: {fileID: 5604506390970859135}
   m_Layer: 0
-  m_Name: SingleShot_Rocket
+  m_Name: SingleShot_HomingRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6510d40541086241bc2a43697eb25b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 9086060395215682456, guid: d9ce23a28c1930c419fa6e5c486bf51a, type: 3}
+  bulletPrefab: {fileID: 4514364951947379993, guid: 54363103a90f4e64ca8d3ca1f39791e1, type: 3}
   fireRate: 3
   shootPoint: {fileID: 6336957526831063888}
