@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Desert_Wave1
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - enemyPrefab: {fileID: 6071253448255439001, guid: b47ac38b0e9871c4d8f5145ef886911d, type: 3}
+  - enemyPrefab: {fileID: 2380536090520563616, guid: 1f70c71858d810343879093525ab8db7, type: 3}
     count: 1
     spawnRate: 1
     spawnFromSide: 0
