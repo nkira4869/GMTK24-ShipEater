@@ -45,7 +45,23 @@ public class Enemy : MonoBehaviour
         var shooters = GetComponentsInChildren<Shooter>();
         foreach (var shooter in shooters)
         {
-            shooter.bulletPrefab.GetComponent<Bullet>().damage = bulletDamage;
+            if (TryGetComponent<Bullet>(out Bullet bl))
+            {
+                bl.damage = bulletDamage;
+            }
+            if (TryGetComponent<RocketBullet>(out RocketBullet rb))
+            {
+                rb.damage = bulletDamage;
+            }
+            if (TryGetComponent<HomingBullet>(out HomingBullet hb))
+            {
+                hb.damage = bulletDamage;
+            }
+            if (TryGetComponent<HomingMissile>(out HomingMissile hm))
+            {
+                hm.damage = bulletDamage;
+            }
+
         }
 
         // Subscribe to the health component's events
