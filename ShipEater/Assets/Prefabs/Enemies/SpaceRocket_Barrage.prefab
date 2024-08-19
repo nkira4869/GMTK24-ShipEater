@@ -55,6 +55,7 @@ MonoBehaviour:
   movementSpeed: 2
   debrisPrefab: {fileID: 1553161575676087173, guid: f4dba8261f16e0146ae47f07e0d7da12, type: 3}
   canDropDebris: 1
+  debrisDropChancePercent: 50
   animator: {fileID: 0}
   lifespan: 25
   canStrafe: 1

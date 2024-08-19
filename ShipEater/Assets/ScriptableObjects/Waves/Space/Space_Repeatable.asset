@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Space_Repeatable
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - enemyPrefab: {fileID: 2380536090520563616, guid: 1f70c71858d810343879093525ab8db7, type: 3}
+  - enemyPrefab: {fileID: 6580345130888300503, guid: 7955be2ae24d3ca4593f21084734f743, type: 3}
     count: 1
     spawnRate: 1
     spawnFromSide: 0
   - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
-    count: 2
-    spawnRate: 2
+    count: 20
+    spawnRate: 1
     spawnFromSide: 0
   intervalBetweenEnemies: 5

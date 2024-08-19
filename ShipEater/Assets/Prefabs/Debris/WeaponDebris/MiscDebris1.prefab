@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5281402069897811612}
   - component: {fileID: 1237361982093045852}
   m_Layer: 7
-  m_Name: DroneOmegaDebris
+  m_Name: MiscDebris1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 415a5d3515bdd014099e9948de2269fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba39879afa9f3ae4c84b2daedba3f7d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3527d99fd6a879c4b82d11e8c05ab6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 60
   currentHealth: 0
 --- !u!58 &5281402069897811612
 CircleCollider2D:

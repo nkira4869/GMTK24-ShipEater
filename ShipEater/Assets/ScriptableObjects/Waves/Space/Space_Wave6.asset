@@ -13,11 +13,19 @@ MonoBehaviour:
   m_Name: Space_Wave6
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - enemyPrefab: {fileID: 2380536090520563616, guid: 1f70c71858d810343879093525ab8db7, type: 3}
-    count: 1
+  - enemyPrefab: {fileID: 8424583683725722935, guid: 39b3bcf39e929694cb2a4634bcf41aab, type: 3}
+    count: 10
     spawnRate: 1
+    spawnFromSide: 1
+  - enemyPrefab: {fileID: 3983210569563288660, guid: 0fbca4b77ec9d854183362ac07202833, type: 3}
+    count: 2
+    spawnRate: 2
     spawnFromSide: 0
-  - enemyPrefab: {fileID: 3983210569563288660, guid: 4dc2021d4c8571143aeedb1b2b11fa50, type: 3}
+  - enemyPrefab: {fileID: 3983210569563288660, guid: 81e6c5daf1bd5034aa2ce54948f9c107, type: 3}
+    count: 2
+    spawnRate: 2
+    spawnFromSide: 0
+  - enemyPrefab: {fileID: 3983210569563288660, guid: 57502b7255b61204aa5ea3f3acb44142, type: 3}
     count: 2
     spawnRate: 2
     spawnFromSide: 0

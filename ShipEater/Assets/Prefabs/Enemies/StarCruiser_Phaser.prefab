@@ -50,11 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: 9ae203a6fd207a844aab4c470b15dfe7, type: 3}
-  bulletDamage: 60
-  health: 50
+  bulletDamage: 20
+  health: 100
   movementSpeed: 0.5
-  debrisPrefab: {fileID: 1553161575676087173, guid: 47bf3236f6a78f14a9b20ce156ef5200, type: 3}
+  debrisPrefab: {fileID: 1553161575676087173, guid: 29c098f59905caf4892ad96ae9e14e46, type: 3}
   canDropDebris: 1
+  debrisDropChancePercent: 50
   animator: {fileID: 0}
   lifespan: 25
   canStrafe: 1
@@ -243,6 +244,14 @@ PrefabInstance:
     - target: {fileID: 4263618290333450969, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
       propertyPath: m_Name
       value: LaserBeamEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540964589107147680, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
+      propertyPath: firingDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5540964589107147680, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
+      propertyPath: damagePerSecond
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

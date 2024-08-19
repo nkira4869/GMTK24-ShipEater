@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Debris_Random
       objectReference: {fileID: 0}
+    - target: {fileID: 7166664153501990482, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 711bd69962e16534ea1bbdb557ee1e67, type: 3}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.42
