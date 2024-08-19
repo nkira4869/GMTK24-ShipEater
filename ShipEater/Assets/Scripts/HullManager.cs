@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class HullManager : MonoBehaviour
 {
-    public Health hullHealth; // Reference to the existing Health component
+    public Health hullHealth;
     public ShipHexGridSystem hexGridSystem;
-    public GameObject defaultBulletPrefab; // Default bullet prefab for any activated bullet patterns
-    public PlayerController playerController; // Reference to the PlayerController
+    public GameObject defaultBulletPrefab;
+    public PlayerController playerController;
     private List<Attachment> attachments = new List<Attachment>();
 
     [Header("Leveling System")]
-    public int currentLevel = 1;
-    public int levelUpThreshold = 5;
+    public List<LevelConfig> levelConfigs; // List of level configurations
+    private int currentLevel = 1;
+
     public float hexRadiusExpansionAmount = 0.5f;
-    public float scaleUpAmount = 0.1f; // Amount to scale the hull during level up
-    public int immuneAttachmentsCount = 2;
+    public float scaleUpAmount = 0.1f;
 
     void Start()
     {
@@ -37,10 +37,7 @@ public class HullManager : MonoBehaviour
         attachments.Add(newAttachment);
         newAttachment.Attach(hexGridSystem);
 
-        if (attachments.Count % levelUpThreshold == 0)
-        {
-            LevelUp();
-        }
+        CheckForLevelUp();
     }
 
     public void ApplyHealthModifier(float modifier)
@@ -63,17 +60,45 @@ public class HullManager : MonoBehaviour
         Debug.Log($"Hull Health Changed: {currentHealth}/{maxHealth}");
     }
 
+    void CheckForLevelUp()
+    {
+        // Make sure we have a level configuration for the current level
+        if (currentLevel - 1 < levelConfigs.Count)
+        {
+            int nextLevelThreshold = levelConfigs[currentLevel - 1].levelUpThreshold;
+
+            // If the current attachment count meets or exceeds the next level's threshold, level up
+            if (attachments.Count >= nextLevelThreshold)
+            {
+                LevelUp();
+            }
+        }
+    }
+
     void LevelUp()
     {
+        // Increase the current level
         currentLevel++;
-        List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, immuneAttachmentsCount);
-        foreach (var attachment in closestAttachments)
-        {
-            attachment.MakeImmuneToDamage();
-        }
 
-        ExpandGridRadiusAndScaleHull();
-        Debug.Log($"Hull leveled up to level {currentLevel}. {immuneAttachmentsCount} attachments are now immune to damage.");
+        if (currentLevel - 1 < levelConfigs.Count)
+        {
+            // Get the configuration for the new level
+            LevelConfig config = levelConfigs[currentLevel - 1];
+
+            // Make the specified number of attachments immune
+            List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, config.immuneAttachmentsCount);
+            foreach (var attachment in closestAttachments)
+            {
+                attachment.MakeImmuneToDamage();
+            }
+
+            ExpandGridRadiusAndScaleHull();
+            Debug.Log($"Hull leveled up to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
+        }
+        else
+        {
+            Debug.Log("No more level configurations available.");
+        }
     }
 
     List<Attachment> FindClosestAttachmentsToCenter(List<Attachment> allAttachments, int count)
@@ -84,14 +109,11 @@ public class HullManager : MonoBehaviour
 
     void ExpandGridRadiusAndScaleHull()
     {
-        // Expand the hex grid radius
         hexGridSystem.IncreaseHexRadius(hexRadiusExpansionAmount);
 
-        // Scale the hull itself
         Vector3 scaleIncrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
         transform.localScale += scaleIncrease;
 
-        // Normalize the scale of each attachment to prevent exponential growth
         foreach (var attachment in attachments)
         {
             attachment.transform.localScale = Vector3.one; // Reset the attachment scale to (1,1,1)
