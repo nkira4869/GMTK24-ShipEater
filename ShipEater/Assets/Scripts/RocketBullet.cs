@@ -28,7 +28,8 @@ public class RocketBullet : MonoBehaviour
         // Create an explosion effect (optional)
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            GameObject obj = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(obj, 0.5f);
         }
 
         // Deal damage to all objects within the explosion radius
