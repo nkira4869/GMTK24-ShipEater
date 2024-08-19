@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4557199321616866569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f80aaf5f344fe4e846aa890e311137, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f8875509be2e004cb2a5cd3415857d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
@@ -141,4 +141,4 @@ MonoBehaviour:
     m_Bits: 256
   lifetime: 5
   explosionRadius: 3
-  explosionEffect: {fileID: 9221512423401461711, guid: 4b0c3442ad8400e418223ef8d77778ee, type: 3}
+  explosionEffect: {fileID: 0}
