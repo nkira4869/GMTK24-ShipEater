@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundTilePrefab: {fileID: 7233821006198825728, guid: 81e020a35e524dd4195fefeeb2ec2356, type: 3}
   numberOfTiles: 2
-  tileHeight: 76.8
+  tileHeight: 182.858
   scrollSpeed: 2
