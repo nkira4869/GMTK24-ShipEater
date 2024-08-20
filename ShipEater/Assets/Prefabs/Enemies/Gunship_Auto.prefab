@@ -58,6 +58,7 @@ MonoBehaviour:
   debrisDropChancePercent: 100
   animator: {fileID: 0}
   lifespan: 20
+  DeathExplosion: {fileID: 600460462291499848, guid: 4ea70676d1dd9a343b2679bdad9a2108, type: 3}
   canStrafe: 1
   strafeAmount: 1
   strafeSpeed: 0.5
@@ -65,6 +66,7 @@ MonoBehaviour:
   strafePauseMaxDuration: 6
   strafeResumeMinDelay: 5
   strafeResumeMaxDelay: 10
+  hitColor: {r: 1, g: 0.3529412, b: 0.3529412, a: 1}
 --- !u!212 &8541712553848356930
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float debrisDropChancePercent = 50f; // Probability of debris dropping (0.5 = 50% chance)
     public Animator animator;
     public float lifespan = 30f;
+    public GameObject DeathExplosion;
 
     // Strafing Variables
     public bool canStrafe = true;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
     private float strafeDirection;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+    public Color hitColor;
 
     void Start()
     {
@@ -140,9 +142,11 @@ public class Enemy : MonoBehaviour
 
     void OnDeath()
     {
-        if (animator != null)
+        // Create an explosion effect (optional)
+        if (DeathExplosion != null)
         {
-            animator.SetTrigger("Death");
+            GameObject obj = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
+            Destroy(obj, 0.5f);
         }
 
         // Check if debris can drop and roll for the drop chance
