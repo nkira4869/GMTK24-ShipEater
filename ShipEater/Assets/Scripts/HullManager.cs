@@ -55,13 +55,9 @@ public class HullManager : MonoBehaviour
     {
         attachments.Add(newAttachment);
         newAttachment.Attach(hexGridSystem);
+        CheckForLevelChange();
+        CheckAndApplyRingImmunity();
 
-        // Schedule the scaling event with a delay if not already scheduled
-        if (!isScalingScheduled)
-        {
-            isScalingScheduled = true;
-            StartCoroutine(DelayedTriggerScalingEvent(1.0f)); // Adjust the delay time (in seconds) as needed
-        }
     }
     private IEnumerator DelayedTriggerScalingEvent(float delay)
     {
@@ -130,15 +126,20 @@ public class HullManager : MonoBehaviour
         {
             LevelConfig config = levelConfigs[currentLevel - 1];
 
-            // Apply the fixed scaling across the grid, hull, and attachments
-            ScaleAllComponents();
-
             // Update the camera zoom based on the current level
             CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count);
 
             Debug.Log($"Hull leveled up to level {currentLevel}.");
+
+            // Delay the scaling and other attachment updates after the level up
+            if (!isScalingScheduled)
+            {
+                isScalingScheduled = true;
+                StartCoroutine(DelayedTriggerScalingEvent(1.0f)); // Adjust the delay time (in seconds) as needed
+            }
         }
     }
+
 
     void LevelDown()
     {
@@ -147,9 +148,6 @@ public class HullManager : MonoBehaviour
         if (currentLevel - 1 < levelConfigs.Count && currentLevel > 0)
         {
             LevelConfig config = levelConfigs[currentLevel - 1];
-
-            // Apply the fixed scaling across the grid, hull, and attachments
-            ScaleAllComponents();
 
             // Update the camera zoom based on the current level
             CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count);
