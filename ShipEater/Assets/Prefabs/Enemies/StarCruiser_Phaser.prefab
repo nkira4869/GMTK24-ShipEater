@@ -247,6 +247,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserBeamEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5320721104765694441, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.131
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320721104765694441, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.237
+      objectReference: {fileID: 0}
     - target: {fileID: 5540964589107147680, guid: 8b96e1219bf52224f8d83fd770e5a85c, type: 3}
       propertyPath: firingDuration
       value: 1

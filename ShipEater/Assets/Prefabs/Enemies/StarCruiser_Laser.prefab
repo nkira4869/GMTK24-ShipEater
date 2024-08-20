@@ -215,6 +215,14 @@ PrefabInstance:
       propertyPath: targetLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 3905949508919580051, guid: f0f25ba275ad4d34ebcc6212c2a02c45, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.129
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905949508919580051, guid: f0f25ba275ad4d34ebcc6212c2a02c45, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.185
+      objectReference: {fileID: 0}
     - target: {fileID: 4956543422813431459, guid: f0f25ba275ad4d34ebcc6212c2a02c45, type: 3}
       propertyPath: m_Name
       value: LaserBeamEnemy

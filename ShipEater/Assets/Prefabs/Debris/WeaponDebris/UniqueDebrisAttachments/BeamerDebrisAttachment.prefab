@@ -65,10 +65,6 @@ PrefabInstance:
       value: 0.5106392
       objectReference: {fileID: 0}
     - target: {fileID: 7675259499501895937, guid: 34a4e551b789e6e498049aa94e9e62ca, type: 3}
-      propertyPath: maxLength
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7675259499501895937, guid: 34a4e551b789e6e498049aa94e9e62ca, type: 3}
       propertyPath: firingDuration
       value: 4
       objectReference: {fileID: 0}

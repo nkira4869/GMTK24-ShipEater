@@ -255,6 +255,14 @@ PrefabInstance:
       propertyPath: targetLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 7434222422275485036, guid: cd6f925370d3bc948a71d6eb86b8b466, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434222422275485036, guid: cd6f925370d3bc948a71d6eb86b8b466, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.203
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
