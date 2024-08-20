@@ -14,7 +14,7 @@ public class HullManager : MonoBehaviour
 
     [Header("Leveling System")]
     public List<LevelConfig> levelConfigs; // List of level configurations
-    private int currentLevel = 1;
+    public int currentLevel = 1;
 
     public float hexRadiusExpansionAmount = 0.5f;
     public float scaleUpAmount = 0.1f;
