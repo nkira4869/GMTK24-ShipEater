@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1330503261300854384}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.312, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -52,7 +52,7 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: edf72ccb23b39ce40b7ced47a3c5bcf1, type: 3}
   bulletDamage: 20
   health: 50
-  movementSpeed: 1
+  movementSpeed: 0.7
   debrisPrefab: {fileID: 1553161575676087173, guid: 838df744f93819e4a9cd85a8fd9ab4db, type: 3}
   canDropDebris: 1
   debrisDropChancePercent: 50
@@ -202,6 +202,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 2056683508518910042}
     m_Modifications:
     - target: {fileID: 136596772460740573, guid: 65d78427bfada03479c47df28c039758, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 136596772460740573, guid: 65d78427bfada03479c47df28c039758, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 136596772460740573, guid: 65d78427bfada03479c47df28c039758, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 136596772460740573, guid: 65d78427bfada03479c47df28c039758, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -241,6 +253,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 136596772460740573, guid: 65d78427bfada03479c47df28c039758, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1807663608871512154, guid: 65d78427bfada03479c47df28c039758, type: 3}
       propertyPath: m_Name
       value: RandomShooter
@@ -249,6 +265,10 @@ PrefabInstance:
       propertyPath: fireRate
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6530377854677605945, guid: 65d78427bfada03479c47df28c039758, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7829659226776870643, guid: 0bbd5c3400e80a849952fe3350400c04, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

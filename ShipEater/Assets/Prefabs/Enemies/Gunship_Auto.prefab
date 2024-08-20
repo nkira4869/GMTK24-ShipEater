@@ -50,17 +50,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: 2dae5caf1f31b9f4ab5f267e1f4b309e, type: 3}
-  bulletDamage: 1
+  bulletDamage: 2
   health: 6
-  movementSpeed: 0.8
+  movementSpeed: 0.7
   debrisPrefab: {fileID: 1553161575676087173, guid: 2101be64463e28741894453e26d7e366, type: 3}
   canDropDebris: 1
   debrisDropChancePercent: 100
   animator: {fileID: 0}
   lifespan: 20
   canStrafe: 1
-  strafeAmount: 2
-  strafeSpeed: 1.5
+  strafeAmount: 1
+  strafeSpeed: 0.5
   strafePauseMinDuration: 2
   strafePauseMaxDuration: 6
   strafeResumeMinDelay: 5

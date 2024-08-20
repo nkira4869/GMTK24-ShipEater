@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 5317525865268244087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.422, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -81,9 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: fc2495189f1f53b40b1ff06f070c5f51, type: 3}
-  bulletDamage: 40
+  bulletDamage: 15
   health: 50
-  movementSpeed: 0.8
+  movementSpeed: 0.6
   debrisPrefab: {fileID: 1553161575676087173, guid: d541f0fc1fb9764418d8b8245aa5ede0, type: 3}
   canDropDebris: 1
   debrisDropChancePercent: 50
@@ -234,12 +234,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
       propertyPath: bulletCount
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
+      objectReference: {fileID: 7829659226776870643, guid: 0bbd5c3400e80a849952fe3350400c04, type: 3}
     - target: {fileID: 4448187490975704874, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
       propertyPath: m_Name
       value: SpreadShot

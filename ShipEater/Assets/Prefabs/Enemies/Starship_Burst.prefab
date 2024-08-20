@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3237927871564184166}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.405, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -53,15 +53,15 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: 7726994e7e288d64991ee99d62387972, type: 3}
   bulletDamage: 10
   health: 50
-  movementSpeed: 0.8
+  movementSpeed: 0.65
   debrisPrefab: {fileID: 1553161575676087173, guid: 47bf3236f6a78f14a9b20ce156ef5200, type: 3}
   canDropDebris: 1
   debrisDropChancePercent: 50
   animator: {fileID: 0}
   lifespan: 25
   canStrafe: 1
-  strafeAmount: 0.5
-  strafeSpeed: 2
+  strafeAmount: 2
+  strafeSpeed: 0.7
   strafePauseMinDuration: 1
   strafePauseMaxDuration: 3
   strafeResumeMinDelay: 5
@@ -265,6 +265,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 836863461150205401}
     m_Modifications:
     - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -304,6 +316,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5724815129487913041, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: fireRate
       value: 0.5
@@ -315,7 +331,7 @@ PrefabInstance:
     - target: {fileID: 5724815129487913041, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
+      objectReference: {fileID: 7829659226776870643, guid: 0bbd5c3400e80a849952fe3350400c04, type: 3}
     - target: {fileID: 5982669445102839824, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: m_Name
       value: BurstPatternShot (1)
@@ -342,6 +358,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 836863461150205401}
     m_Modifications:
     - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -381,6 +409,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1424543994542812644, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5724815129487913041, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: fireRate
       value: 0.5
@@ -392,7 +424,7 @@ PrefabInstance:
     - target: {fileID: 5724815129487913041, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 7829659226776870643, guid: a234b352451c6194997b5d928f1cf526, type: 3}
+      objectReference: {fileID: 7829659226776870643, guid: 0bbd5c3400e80a849952fe3350400c04, type: 3}
     - target: {fileID: 5982669445102839824, guid: 5366db21123fc29489909296d7fc9d0d, type: 3}
       propertyPath: m_Name
       value: BurstPatternShot

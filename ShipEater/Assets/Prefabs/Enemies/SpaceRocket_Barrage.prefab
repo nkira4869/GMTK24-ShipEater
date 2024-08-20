@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 2380536090520563616}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.88, y: -2.14, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4289706981171152515}
@@ -50,17 +50,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: 9e9e656ec13482c4395d28e21f398291, type: 3}
-  bulletDamage: 30
-  health: 50
-  movementSpeed: 2
+  bulletDamage: 20
+  health: 150
+  movementSpeed: 0.5
   debrisPrefab: {fileID: 1553161575676087173, guid: f4dba8261f16e0146ae47f07e0d7da12, type: 3}
   canDropDebris: 1
   debrisDropChancePercent: 50
   animator: {fileID: 0}
   lifespan: 25
   canStrafe: 1
-  strafeAmount: 0.5
-  strafeSpeed: 2
+  strafeAmount: 1
+  strafeSpeed: 1
   strafePauseMinDuration: 1
   strafePauseMaxDuration: 3
   strafeResumeMinDelay: 5
@@ -202,8 +202,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1843203045639166367}
     m_Modifications:
     - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
+      propertyPath: fireRate
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
       propertyPath: bulletCount
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
+      propertyPath: spreadAngle
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2269053818461466783, guid: d5bb44a47832556469c82667a0aa027d, type: 3}
       propertyPath: bulletPrefab
