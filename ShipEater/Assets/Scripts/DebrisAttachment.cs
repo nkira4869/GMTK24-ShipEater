@@ -110,9 +110,34 @@ public class DebrisAttachment : MonoBehaviour
         {
             shipTransform = hullManager.transform;
             targetGridPosition = FindNearestUnoccupiedCellToCenter();
+
+            // Attempt to reserve the cell; if it’s already reserved, find another cell
+            if (!shipGridSystem.ReserveCell(targetGridPosition))
+            {
+                targetGridPosition = FindAnotherUnoccupiedCell();
+            }
+
             isBeingPulled = true;
             lineRenderer.enabled = true;
         }
+    }
+
+    // Example of finding another unoccupied cell if the first choice is already reserved
+    Vector2Int FindAnotherUnoccupiedCell()
+    {
+        List<Vector2Int> allCells = shipGridSystem.GetAllHexCoordinates();
+
+        foreach (Vector2Int cell in allCells)
+        {
+            if (!shipGridSystem.IsCellOccupied(cell))
+            {
+                shipGridSystem.ReserveCell(cell);
+                return cell;
+            }
+        }
+
+        // Fallback: return center cell if no other options (should rarely happen)
+        return new Vector2Int(0, 0);
     }
 
     // Find the nearest unoccupied cell to the center of the grid (relative to the ship)

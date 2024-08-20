@@ -12,6 +12,9 @@ public class Attachment : MonoBehaviour
         // Get the Health component attached to the same GameObject
         healthComponent = GetComponent<Health>();
         dynamicHexGrid = FindObjectOfType<DynamicHexGrid>(); // Get reference to the new DynamicHexGrid system
+
+        // Attach the object to the grid
+        Attach(dynamicHexGrid);
     }
 
     // Method to attach the object to the grid
@@ -20,6 +23,19 @@ public class Attachment : MonoBehaviour
         // Get the grid position using the updated grid system
         gridPosition = hexGridSystem.WorldToHexCoordinates(transform.position);
         hexGridSystem.OccupyCell(gridPosition); // Mark the cell as occupied
+
+        // Position the attachment at the center of its grid cell
+        Reposition();
+    }
+
+    // Method to reposition the attachment based on its grid position and current grid scale
+    public void Reposition()
+    {
+        if (dynamicHexGrid != null)
+        {
+            Vector3 newPosition = dynamicHexGrid.HexToWorldPosition(gridPosition) + dynamicHexGrid.ship.transform.position;
+            transform.position = newPosition;
+        }
     }
 
     // Make the attachment immune to damage
@@ -40,5 +56,11 @@ public class Attachment : MonoBehaviour
         {
             healthComponent.SetImmune(isImmuneToDamage); // Update the Health component
         }
+    }
+
+    // Event handler for when the grid is scaled (e.g., during level-up)
+    public void OnGridScaled()
+    {
+        Reposition(); // Recalculate and update the position based on the new grid scale
     }
 }

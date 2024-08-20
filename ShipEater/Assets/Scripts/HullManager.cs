@@ -5,7 +5,7 @@ using UnityEngine;
 public class HullManager : MonoBehaviour
 {
     public Health hullHealth;
-    public DynamicHexGrid hexGridSystem; // Updated reference to the DynamicHexGrid
+    public DynamicHexGrid hexGridSystem; // Reference to the DynamicHexGrid
     public GameObject defaultBulletPrefab;
     public PlayerController playerController;
     private List<Attachment> attachments = new List<Attachment>();
@@ -103,7 +103,8 @@ public class HullManager : MonoBehaviour
                 attachment.MakeImmuneToDamage();
             }
 
-            ExpandGridRadiusAndScaleHull();
+            ExpandGridRadius();
+            NotifyAttachmentsOfGridScale();
             CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
             Debug.Log($"Hull leveled up to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
         }
@@ -129,9 +130,30 @@ public class HullManager : MonoBehaviour
                 attachment.MakeImmuneToDamage();
             }
 
-            ShrinkGridRadiusAndScaleHull();
+            ShrinkGridRadius();
+            NotifyAttachmentsOfGridScale();
             CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
             Debug.Log($"Hull leveled down to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
+        }
+    }
+
+    void ExpandGridRadius()
+    {
+        // Expand the grid size (increase the hex size)
+        hexGridSystem.hexSize += hexRadiusExpansionAmount;
+    }
+
+    void ShrinkGridRadius()
+    {
+        // Shrink the grid size (decrease the hex size)
+        hexGridSystem.hexSize -= hexRadiusExpansionAmount;
+    }
+
+    void NotifyAttachmentsOfGridScale()
+    {
+        foreach (var attachment in attachments)
+        {
+            attachment.OnGridScaled(); // Notify each attachment to reposition itself
         }
     }
 
@@ -139,36 +161,6 @@ public class HullManager : MonoBehaviour
     {
         allAttachments.Sort((a, b) => Vector2Int.Distance(Vector2Int.zero, a.gridPosition).CompareTo(Vector2Int.Distance(Vector2Int.zero, b.gridPosition)));
         return allAttachments.GetRange(0, Mathf.Min(count, allAttachments.Count));
-    }
-
-    void ExpandGridRadiusAndScaleHull()
-    {
-        // Adjust the grid size if necessary (if you have a method to expand the grid)
-        Vector3 scaleIncrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
-        transform.localScale += scaleIncrease;
-
-        // Update attachment positions based on the new grid layout
-        foreach (var attachment in attachments)
-        {
-            attachment.transform.localScale = Vector3.one;
-            Vector3 newPosition = hexGridSystem.HexToWorldPosition(attachment.gridPosition);
-            attachment.transform.position = newPosition;
-        }
-    }
-
-    void ShrinkGridRadiusAndScaleHull()
-    {
-        // Adjust the grid size if necessary (if you have a method to shrink the grid)
-        Vector3 scaleDecrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
-        transform.localScale -= scaleDecrease;
-
-        // Update attachment positions based on the new grid layout
-        foreach (var attachment in attachments)
-        {
-            attachment.transform.localScale = Vector3.one;
-            Vector3 newPosition = hexGridSystem.HexToWorldPosition(attachment.gridPosition);
-            attachment.transform.position = newPosition;
-        }
     }
 
     void OnHullDestroyed()

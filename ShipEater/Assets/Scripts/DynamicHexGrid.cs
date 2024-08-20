@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DynamicHexGrid : MonoBehaviour
 {
@@ -9,10 +10,17 @@ public class DynamicHexGrid : MonoBehaviour
 
     private Dictionary<Vector2Int, Hex> hexes = new Dictionary<Vector2Int, Hex>();
     private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // Track occupied cells
+    private HashSet<Vector2Int> reservedCells = new HashSet<Vector2Int>(); // Track reserved cells
+
+    public UnityEvent OnGridScaled;
 
     void Start()
     {
+        if (OnGridScaled == null)
+            OnGridScaled = new UnityEvent();
+
         GenerateHexGrid();
+        MarkCenterCellAsOccupied();
     }
 
     // Generates the hex grid using axial coordinates
@@ -30,6 +38,18 @@ public class DynamicHexGrid : MonoBehaviour
             }
         }
     }
+    public void ScaleGrid(float scaleChange)
+    {
+        hexSize += scaleChange;
+        OnGridScaled.Invoke(); // Notify all listeners (attachments)
+    }
+
+    // Marks the center cell as occupied to prevent it from being used for attachments
+    void MarkCenterCellAsOccupied()
+    {
+        Vector2Int centerCell = new Vector2Int(0, 0);
+        occupiedCells.Add(centerCell); // Mark the center as occupied
+    }
 
     // Converts axial hex coordinates to world space
     public Vector3 HexToWorldPosition(Vector2Int hexCoord)
@@ -42,13 +62,11 @@ public class DynamicHexGrid : MonoBehaviour
     // Converts world position to axial hex coordinates
     public Vector2Int WorldToHexCoordinates(Vector3 worldPosition)
     {
-        // Convert the world position relative to the ship
         Vector3 relativePosition = worldPosition - ship.transform.position;
 
         float q = (2f / 3f * relativePosition.x) / hexSize;
         float r = (-1f / 3f * relativePosition.x + Mathf.Sqrt(3f) / 3f * relativePosition.y) / hexSize;
 
-        // Round to the nearest hex coordinate
         return RoundToHexCoordinates(q, r);
     }
 
@@ -74,13 +92,66 @@ public class DynamicHexGrid : MonoBehaviour
 
         return new Vector2Int(roundedQ, roundedR);
     }
+
+    // Returns a list of the axial coordinates of all hexes
     public List<Vector2Int> GetAllHexCoordinates()
     {
         return new List<Vector2Int>(hexes.Keys);
     }
 
+    // Track a cell as occupied when a new part is attached
+    public void OccupyCell(Vector2Int cell)
+    {
+        reservedCells.Remove(cell); // Clear any reservation when a cell is fully occupied
+        occupiedCells.Add(cell);
+    }
 
-    // Draws the grid and the triangles using Gizmos in the OnDrawGizmos method
+    // Check if a cell is occupied or reserved
+    public bool IsCellOccupied(Vector2Int cell)
+    {
+        return occupiedCells.Contains(cell) || reservedCells.Contains(cell);
+    }
+
+    // Reserve a cell to prevent multiple attachments from claiming it
+    public bool ReserveCell(Vector2Int cell)
+    {
+        if (!IsCellOccupied(cell))
+        {
+            reservedCells.Add(cell);
+            return true;
+        }
+        return false;
+    }
+
+    // Clear a reservation if the attachment doesn't reach the reserved cell
+    public void ClearReservation(Vector2Int cell)
+    {
+        reservedCells.Remove(cell);
+    }
+
+    // Returns a list of the axial coordinates of neighboring hexes
+    public List<Vector2Int> GetHexNeighbors(Vector2Int hex)
+    {
+        List<Vector2Int> directions = new List<Vector2Int>
+        {
+            new Vector2Int(1, 0),
+            new Vector2Int(1, -1),
+            new Vector2Int(0, -1),
+            new Vector2Int(-1, 0),
+            new Vector2Int(-1, 1),
+            new Vector2Int(0, 1)
+        };
+
+        List<Vector2Int> neighbors = new List<Vector2Int>();
+
+        foreach (var direction in directions)
+        {
+            neighbors.Add(hex + direction);
+        }
+
+        return neighbors;
+    }
+
     void OnDrawGizmos()
     {
         if (hexes == null || hexes.Count == 0) return;
@@ -131,44 +202,6 @@ public class DynamicHexGrid : MonoBehaviour
                 Gizmos.DrawLine(center, neighborCenter);
             }
         }
-    }
-
-    // Returns a list of the axial coordinates of neighboring hexes
-    public List<Vector2Int> GetHexNeighbors(Vector2Int hex)
-    {
-        List<Vector2Int> directions = new List<Vector2Int>
-        {
-            new Vector2Int(1, 0),
-            new Vector2Int(1, -1),
-            new Vector2Int(0, -1),
-            new Vector2Int(-1, 0),
-            new Vector2Int(-1, 1),
-            new Vector2Int(0, 1)
-        };
-
-        List<Vector2Int> neighbors = new List<Vector2Int>();
-
-        foreach (var direction in directions)
-        {
-            neighbors.Add(hex + direction);
-        }
-
-        return neighbors;
-    }
-
-    // Track a cell as occupied when a new part is attached
-    public void OccupyCell(Vector2Int cell)
-    {
-        if (!occupiedCells.Contains(cell))
-        {
-            occupiedCells.Add(cell);
-        }
-    }
-
-    // Check if a cell is occupied
-    public bool IsCellOccupied(Vector2Int cell)
-    {
-        return occupiedCells.Contains(cell);
     }
 
     // Represents a single hex cell
