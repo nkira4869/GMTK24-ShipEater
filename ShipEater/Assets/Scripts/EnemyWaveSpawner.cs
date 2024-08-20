@@ -5,12 +5,14 @@ using UnityEngine;
 public class EnemyWaveSpawner : MonoBehaviour
 {
     public List<EnemyWave> enemyWaves; // List of waves to spawn
+    public EnemyWave repeatableWave; // The repeatable wave to spawn indefinitely after all waves are completed
     public Camera mainCamera; // Reference to the main camera
     public float despawnOffset = 5f; // Distance beyond the camera view where enemies are despawned
     public float spawnOffset = 2f; // Offset to move spawn areas away from the edges of the screen
 
     private int currentWaveIndex = 0;
     private List<GameObject> activeEnemies = new List<GameObject>(); // Track active enemies
+    private bool allWavesCompleted = false; // Flag to check if all waves are completed
 
     void Start()
     {
@@ -25,9 +27,17 @@ public class EnemyWaveSpawner : MonoBehaviour
     void Update()
     {
         // Check if all enemies in the current wave are dead
-        if (activeEnemies.Count == 0 && currentWaveIndex < enemyWaves.Count)
+        if (activeEnemies.Count == 0 && !allWavesCompleted)
         {
-            StartNextWave();
+            if (currentWaveIndex < enemyWaves.Count)
+            {
+                StartNextWave();
+            }
+            else
+            {
+                allWavesCompleted = true;
+                StartCoroutine(SpawnRepeatableWave()); // Start the repeatable wave once all predefined waves are done
+            }
         }
 
         // Check if any enemies should be despawned after going out of view
@@ -65,6 +75,15 @@ public class EnemyWaveSpawner : MonoBehaviour
 
             // Wait for the interval before spawning the next enemy type in this wave
             yield return new WaitForSeconds(wave.intervalBetweenEnemies);
+        }
+    }
+
+    // Coroutine to spawn the repeatable wave indefinitely
+    IEnumerator SpawnRepeatableWave()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(SpawnWave(repeatableWave));
         }
     }
 
