@@ -73,15 +73,27 @@ public class DynamicHexGrid : MonoBehaviour
             return ringCells;
         }
 
-        Vector2Int start = new Vector2Int(-ringRadius, 0);
-        Vector2Int current = start;
+        // Start at the leftmost position in the ring
+        Vector2Int current = new Vector2Int(-ringRadius, ringRadius);
 
-        for (int i = 0; i < 6; i++)
+        // Directions to move in a hex grid (East, North-East, North-West, West, South-West, South-East)
+        List<Vector2Int> directions = new List<Vector2Int>
+    {
+        new Vector2Int(1, -1), // Move East
+        new Vector2Int(1, 0),  // Move North-East
+        new Vector2Int(0, 1),  // Move North-West
+        new Vector2Int(-1, 1), // Move West
+        new Vector2Int(-1, 0), // Move South-West
+        new Vector2Int(0, -1)  // Move South-East
+    };
+
+        // For each of the 6 sides of the hexagon, move in the current direction for 'ringRadius' steps
+        foreach (var direction in directions)
         {
-            for (int j = 0; j < ringRadius; j++)
+            for (int i = 0; i < ringRadius; i++)
             {
                 ringCells.Add(current);
-                current = GetNextHexInDirection(current, i); // Move in the current direction
+                current += direction;
             }
         }
 
@@ -106,15 +118,15 @@ public class DynamicHexGrid : MonoBehaviour
     public bool IsRingFullyOccupied(int ringRadius)
     {
         List<Vector2Int> ringCells = GetHexRing(ringRadius);
-
-        foreach (Vector2Int cell in ringCells)
+        foreach (var cell in ringCells)
         {
             if (!IsCellOccupied(cell))
             {
-                return false; // If any cell in the ring is not occupied, return false
+                Debug.Log($"Cell {cell} is not occupied in ring {ringRadius}");
+                return false;
             }
         }
-
+        Debug.Log($"Ring {ringRadius} is fully occupied.");
         return true;
     }
 

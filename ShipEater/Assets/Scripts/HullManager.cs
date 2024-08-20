@@ -19,12 +19,16 @@ public class HullManager : MonoBehaviour
     public float hexRadiusExpansionAmount = 0.5f;
     public float scaleUpAmount = 0.1f;
     private float previousHexSize;
-    private int currentImmunityLevel = 0;
+    [SerializeField] private int currentImmunityLevel = 0;
     private bool isScalingScheduled = false;
 
     [Header("Immunity Sprites")]
     public Sprite[] hullSprites; // Array of sprites corresponding to immunity levels 0 to 3
     private SpriteRenderer hullSpriteRenderer; // Reference to the sprite renderer for the hull
+
+    [Header("Additional Immunity Sprites")]
+    public SpriteRenderer additionalSpriteRenderer; // Reference to another sprite renderer
+    public Sprite[] additionalSprites; // Array of sprites corresponding to immunity levels for the additional sprite
 
     void Start()
     {
@@ -47,18 +51,31 @@ public class HullManager : MonoBehaviour
         {
             Debug.LogError("HullSprite object not found or missing SpriteRenderer component.");
         }
+
+        if (additionalSpriteRenderer == null)
+        {
+            Debug.LogError("Additional sprite renderer not assigned.");
+        }
+
         UpdateHullSprite();
         StartCoroutine(RepositionAttachmentsPeriodically());
+    }
+
+    private void Update()
+    {
+        CheckAndApplyRingImmunity();
     }
 
     public void AddAttachment(Attachment newAttachment)
     {
         attachments.Add(newAttachment);
         newAttachment.Attach(hexGridSystem);
+        Debug.Log($"Added attachment at grid position {newAttachment.gridPosition}");
+
         CheckForLevelChange();
         CheckAndApplyRingImmunity();
-
     }
+
     private IEnumerator DelayedTriggerScalingEvent(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -197,15 +214,17 @@ public class HullManager : MonoBehaviour
         int ringRadius = 1;
         int highestImmunityLevel = 0;
 
+        // Debug the ring occupation check
         while (ringRadius <= 3 && hexGridSystem.IsRingFullyOccupied(ringRadius))
         {
+            Debug.Log($"Ring {ringRadius} is fully occupied.");
             highestImmunityLevel = ringRadius; // Set the immunity level based on the filled ring
             ringRadius++;
         }
 
-        // Apply the new immunity level if it changed
         if (highestImmunityLevel != currentImmunityLevel)
         {
+            Debug.Log($"Updating immunity level to {highestImmunityLevel}");
             currentImmunityLevel = highestImmunityLevel;
             UpdateHullSprite();
         }
@@ -216,6 +235,7 @@ public class HullManager : MonoBehaviour
             List<Attachment> ringAttachments = GetAttachmentsInRing(i);
             foreach (var attachment in ringAttachments)
             {
+                Debug.Log($"Applying immunity to attachment at grid position {attachment.gridPosition}");
                 attachment.MakeImmuneToDamage();
             }
         }
@@ -223,6 +243,7 @@ public class HullManager : MonoBehaviour
 
     private void UpdateHullSprite()
     {
+        // Update the primary hull sprite based on the immunity level
         if (hullSprites != null && hullSprites.Length > currentImmunityLevel)
         {
             hullSpriteRenderer.sprite = hullSprites[currentImmunityLevel];
@@ -230,6 +251,16 @@ public class HullManager : MonoBehaviour
         else
         {
             Debug.LogError("Hull sprite array is not properly configured or missing sprites.");
+        }
+
+        // Update the additional sprite based on the immunity level
+        if (additionalSprites != null && additionalSprites.Length > currentImmunityLevel)
+        {
+            additionalSpriteRenderer.sprite = additionalSprites[currentImmunityLevel];
+        }
+        else
+        {
+            Debug.LogError("Additional sprite array is not properly configured or missing sprites.");
         }
     }
 
@@ -242,7 +273,12 @@ public class HullManager : MonoBehaviour
         {
             if (ringCells.Contains(attachment.gridPosition))
             {
+                Debug.Log($"Attachment at grid position {attachment.gridPosition} is in ring {ringRadius}");
                 ringAttachments.Add(attachment);
+            }
+            else
+            {
+                Debug.Log($"Attachment at grid position {attachment.gridPosition} is NOT in ring {ringRadius}");
             }
         }
 
