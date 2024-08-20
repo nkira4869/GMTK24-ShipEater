@@ -47,7 +47,6 @@ public class CameraController : MonoBehaviour
     public void UpdateCameraZoom(int currentLevel, int totalLevels)
     {
         float targetZoom = Mathf.Lerp(minZoom, maxZoom, (float)(currentLevel - 1) / (totalLevels - 1));
-        Debug.Log(targetZoom);
         StartCoroutine(SmoothZoom(targetZoom));
     }
 

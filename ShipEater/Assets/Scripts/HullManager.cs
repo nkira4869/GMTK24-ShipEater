@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HullManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class HullManager : MonoBehaviour
     public float hexRadiusExpansionAmount = 0.5f;
     public float scaleUpAmount = 0.1f;
     private float previousHexSize;
+    private int currentImmunityLevel = 0;
+    [Header("Immunity Sprites")]
+    public Sprite[] hullSprites; // Array of sprites corresponding to immunity levels 0 to 3
+    private SpriteRenderer hullSpriteRenderer; // Reference to the sprite renderer for the hull
 
     void Start()
     {
@@ -34,6 +39,14 @@ public class HullManager : MonoBehaviour
         mainCamera = Camera.main;
         hullHealth.onHealthChanged += OnHealthChanged;
         hullHealth.onDeath += OnHullDestroyed;
+
+        hullSpriteRenderer = transform.Find("HullSprite").GetComponent<SpriteRenderer>();
+        if (hullSpriteRenderer == null)
+        {
+            Debug.LogError("HullSprite object not found or missing SpriteRenderer component.");
+        }
+        UpdateHullSprite();
+        StartCoroutine(RepositionAttachmentsPeriodically());
     }
 
     public void AddAttachment(Attachment newAttachment)
@@ -42,6 +55,7 @@ public class HullManager : MonoBehaviour
         newAttachment.Attach(hexGridSystem);
 
         CheckForLevelChange();
+        CheckAndApplyRingImmunity(); // Check for immunity based on ring occupancy
     }
 
     public void RemoveAttachment(Attachment attachmentToRemove)
@@ -50,6 +64,7 @@ public class HullManager : MonoBehaviour
         {
             attachments.Remove(attachmentToRemove);
             CheckForLevelChange();
+            CheckAndApplyRingImmunity(); // Re-evaluate immunity after removal
         }
     }
 
@@ -97,17 +112,14 @@ public class HullManager : MonoBehaviour
         if (currentLevel - 1 < levelConfigs.Count)
         {
             LevelConfig config = levelConfigs[currentLevel - 1];
-            List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, config.immuneAttachmentsCount);
 
-            foreach (var attachment in closestAttachments)
-            {
-                attachment.MakeImmuneToDamage();
-            }
+            // Apply the fixed scaling across the grid, hull, and attachments
+            ScaleAllComponents();
 
-            ExpandGridRadius();
-            NotifyAttachmentsOfGridScale();
-            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
-            Debug.Log($"Hull leveled up to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
+            // Update the camera zoom based on the current level
+            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count);
+
+            Debug.Log($"Hull leveled up to level {currentLevel}.");
         }
     }
 
@@ -119,52 +131,50 @@ public class HullManager : MonoBehaviour
         {
             LevelConfig config = levelConfigs[currentLevel - 1];
 
-            foreach (var attachment in attachments)
-            {
-                attachment.RemoveImmunity();
-            }
+            // Apply the fixed scaling across the grid, hull, and attachments
+            ScaleAllComponents();
 
-            List<Attachment> closestAttachments = FindClosestAttachmentsToCenter(attachments, config.immuneAttachmentsCount);
+            // Update the camera zoom based on the current level
+            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count);
 
-            foreach (var attachment in closestAttachments)
-            {
-                attachment.MakeImmuneToDamage();
-            }
-
-            ShrinkGridRadius();
-            NotifyAttachmentsOfGridScale();
-            CameraController.Instance.UpdateCameraZoom(currentLevel, levelConfigs.Count); // Notify the camera controller to update the zoom
-            Debug.Log($"Hull leveled down to level {currentLevel}. {config.immuneAttachmentsCount} attachments are now immune to damage.");
+            Debug.Log($"Hull leveled down to level {currentLevel}.");
         }
     }
 
-    void ExpandGridRadius()
+    private void ScaleAllComponents()
     {
-        // Expand the grid size (increase the hex size)
-        hexGridSystem.hexSize += hexRadiusExpansionAmount;
-    }
+        float scaleFactor = 1.5f; // Use the fixed scaling factor
 
-    void ShrinkGridRadius()
-    {
-        // Shrink the grid size (decrease the hex size)
-        hexGridSystem.hexSize -= hexRadiusExpansionAmount;
-    }
+        // Scale the grid
+        hexGridSystem.ScaleGrid();
 
-    void NotifyAttachmentsOfGridScale()
-    {
-        float scaleFactor = hexGridSystem.hexSize / previousHexSize; // Calculate the scale change factor relative to the previous size.
-        previousHexSize = hexGridSystem.hexSize; // Update the previous size to the current one.
-
-        foreach (var attachment in attachments)
-        {
-            attachment.OnGridScaled(scaleFactor); // Pass the scale factor to each attachment.
-        }
-
-        // Adjust the hull sprite scaling separately, multiplying by the scale factor
+        // Scale the hull
         Transform hullSpriteTransform = transform.Find("HullSprite");
         if (hullSpriteTransform != null)
         {
             hullSpriteTransform.localScale *= scaleFactor;
+        }
+
+        // Scale each attachment
+        foreach (var attachment in attachments)
+        {
+            attachment.OnGridScaled(scaleFactor);
+        }
+    }
+    private IEnumerator RepositionAttachmentsPeriodically()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5f); // Wait for 5 seconds
+            RepositionAllAttachments();
+        }
+    }
+
+    private void RepositionAllAttachments()
+    {
+        foreach (var attachment in attachments)
+        {
+            attachment.Reposition();
         }
     }
 
@@ -172,6 +182,62 @@ public class HullManager : MonoBehaviour
     {
         allAttachments.Sort((a, b) => Vector2Int.Distance(Vector2Int.zero, a.gridPosition).CompareTo(Vector2Int.Distance(Vector2Int.zero, b.gridPosition)));
         return allAttachments.GetRange(0, Mathf.Min(count, allAttachments.Count));
+    }
+    private void CheckAndApplyRingImmunity()
+    {
+        int ringRadius = 1;
+        int highestImmunityLevel = 0;
+
+        while (ringRadius <= 3 && hexGridSystem.IsRingFullyOccupied(ringRadius))
+        {
+            highestImmunityLevel = ringRadius; // Set the immunity level based on the filled ring
+            ringRadius++;
+        }
+
+        // Apply the new immunity level if it changed
+        if (highestImmunityLevel != currentImmunityLevel)
+        {
+            currentImmunityLevel = highestImmunityLevel;
+            UpdateHullSprite();
+        }
+
+        // Apply immunity to attachments in the occupied rings
+        for (int i = 1; i <= currentImmunityLevel; i++)
+        {
+            List<Attachment> ringAttachments = GetAttachmentsInRing(i);
+            foreach (var attachment in ringAttachments)
+            {
+                attachment.MakeImmuneToDamage();
+            }
+        }
+    }
+
+    private void UpdateHullSprite()
+    {
+        if (hullSprites != null && hullSprites.Length > currentImmunityLevel)
+        {
+            hullSpriteRenderer.sprite = hullSprites[currentImmunityLevel];
+        }
+        else
+        {
+            Debug.LogError("Hull sprite array is not properly configured or missing sprites.");
+        }
+    }
+
+    private List<Attachment> GetAttachmentsInRing(int ringRadius)
+    {
+        List<Attachment> ringAttachments = new List<Attachment>();
+        List<Vector2Int> ringCells = hexGridSystem.GetHexRing(ringRadius);
+
+        foreach (var attachment in attachments)
+        {
+            if (ringCells.Contains(attachment.gridPosition))
+            {
+                ringAttachments.Add(attachment);
+            }
+        }
+
+        return ringAttachments;
     }
 
     void OnHullDestroyed()

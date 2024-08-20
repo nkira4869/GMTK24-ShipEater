@@ -13,6 +13,8 @@ public class Attachment : MonoBehaviour
         healthComponent = GetComponent<Health>();
         dynamicHexGrid = FindObjectOfType<DynamicHexGrid>(); // Get reference to the new DynamicHexGrid system
 
+        dynamicHexGrid.OnGridScaled.AddListener(OnGridScaled);
+
         // Attach the object to the grid
         Attach(dynamicHexGrid);
     }
@@ -39,10 +41,15 @@ public class Attachment : MonoBehaviour
     }
     public void OnGridScaled(float scaleFactor)
     {
-        // Multiply the existing scale by the new scale factor
+        // Log the current and new scales
+        Debug.Log($"Scaling attachment: {gameObject.name} | Current Scale: {transform.localScale} | Scale Factor: {scaleFactor}");
+
+        // Apply the fixed scale factor
         transform.localScale *= scaleFactor;
 
-        // Reposition the attachment after scaling, if necessary
+        Debug.Log($"New Scale for {gameObject.name}: {transform.localScale}");
+
+        // Reposition the attachment after scaling
         Reposition();
     }
 

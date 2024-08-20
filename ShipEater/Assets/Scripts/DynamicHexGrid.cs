@@ -12,12 +12,12 @@ public class DynamicHexGrid : MonoBehaviour
     private HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>(); // Track occupied cells
     private HashSet<Vector2Int> reservedCells = new HashSet<Vector2Int>(); // Track reserved cells
 
-    public UnityEvent OnGridScaled;
+    public UnityEvent<float> OnGridScaled;
 
     void Start()
     {
         if (OnGridScaled == null)
-            OnGridScaled = new UnityEvent();
+            OnGridScaled = new UnityEvent<float>();
 
         GenerateHexGrid();
         MarkCenterCellAsOccupied();
@@ -38,10 +38,14 @@ public class DynamicHexGrid : MonoBehaviour
             }
         }
     }
-    public void ScaleGrid(float scaleChange)
+    public void ScaleGrid()
     {
-        hexSize += scaleChange;
-        OnGridScaled.Invoke(); // Notify all listeners (attachments)
+        float scaleFactor = 1.5f; // Fixed scale factor for uniform scaling
+
+        hexSize *= scaleFactor;
+
+        // Trigger the event with the fixed scale factor
+        OnGridScaled.Invoke(scaleFactor);
     }
 
     // Marks the center cell as occupied to prevent it from being used for attachments
@@ -58,6 +62,62 @@ public class DynamicHexGrid : MonoBehaviour
         float y = hexSize * (Mathf.Sqrt(3) * (hexCoord.y + hexCoord.x / 2f));
         return new Vector3(x, y, 0);
     }
+    public List<Vector2Int> GetHexRing(int ringRadius)
+    {
+        List<Vector2Int> ringCells = new List<Vector2Int>();
+
+        if (ringRadius == 0)
+        {
+            // Return just the center cell
+            ringCells.Add(new Vector2Int(0, 0));
+            return ringCells;
+        }
+
+        Vector2Int start = new Vector2Int(-ringRadius, 0);
+        Vector2Int current = start;
+
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < ringRadius; j++)
+            {
+                ringCells.Add(current);
+                current = GetNextHexInDirection(current, i); // Move in the current direction
+            }
+        }
+
+        return ringCells;
+    }
+
+    private Vector2Int GetNextHexInDirection(Vector2Int currentHex, int direction)
+    {
+        List<Vector2Int> directions = new List<Vector2Int>
+    {
+        new Vector2Int(1, 0), // East
+        new Vector2Int(1, -1), // North-East
+        new Vector2Int(0, -1), // North-West
+        new Vector2Int(-1, 0), // West
+        new Vector2Int(-1, 1), // South-West
+        new Vector2Int(0, 1) // South-East
+    };
+
+        return currentHex + directions[direction];
+    }
+
+    public bool IsRingFullyOccupied(int ringRadius)
+    {
+        List<Vector2Int> ringCells = GetHexRing(ringRadius);
+
+        foreach (Vector2Int cell in ringCells)
+        {
+            if (!IsCellOccupied(cell))
+            {
+                return false; // If any cell in the ring is not occupied, return false
+            }
+        }
+
+        return true;
+    }
+
 
     // Converts world position to axial hex coordinates
     public Vector2Int WorldToHexCoordinates(Vector3 worldPosition)
