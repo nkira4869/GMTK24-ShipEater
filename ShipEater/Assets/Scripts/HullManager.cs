@@ -154,12 +154,6 @@ public class HullManager : MonoBehaviour
         {
             hullSpriteTransform.localScale *= scaleFactor;
         }
-
-        // Scale each attachment
-        foreach (var attachment in attachments)
-        {
-            attachment.OnGridScaled(scaleFactor);
-        }
     }
     private IEnumerator RepositionAttachmentsPeriodically()
     {

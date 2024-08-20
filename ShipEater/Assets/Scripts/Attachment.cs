@@ -41,15 +41,8 @@ public class Attachment : MonoBehaviour
     }
     public void OnGridScaled(float scaleFactor)
     {
-        // Log the current and new scales
-        Debug.Log($"Scaling attachment: {gameObject.name} | Current Scale: {transform.localScale} | Scale Factor: {scaleFactor}");
-
-        // Apply the fixed scale factor
+        Debug.Log($"Scaling attachment {gameObject.name} by factor {scaleFactor}");
         transform.localScale *= scaleFactor;
-
-        Debug.Log($"New Scale for {gameObject.name}: {transform.localScale}");
-
-        // Reposition the attachment after scaling
         Reposition();
     }
 

@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 1807663608871512154, guid: 65d78427bfada03479c47df28c039758, type: 3}
     - target: {fileID: 5086905229308165108, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_Name
-      value: Starship_Debris_Wave
+      value: Starship_Debris_Random
       objectReference: {fileID: 0}
     - target: {fileID: 7166664153501990482, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_Sprite
@@ -22,23 +22,23 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 711bd69962e16534ea1bbdb557ee1e67, type: 3}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalPosition.z
@@ -71,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064878187586487348, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8668801346149258725, guid: 4df0f08173014ce4a8a01032651ab022, type: 3}
       propertyPath: maxHealth
