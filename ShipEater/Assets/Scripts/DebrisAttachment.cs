@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,14 @@ public class DebrisAttachment : MonoBehaviour
     public float healthModifier = 1.1f; // Health modifier (multiplicative)
     public float speedModifier = 0.5f; // Speed modifier (additive)
     public GameObject bulletPatternPrefab; // Reference to a bullet pattern that will be activated on attachment
+
+    // Line renderer animation fields
+    [SerializeField]
+    private Texture2D[] textures;
+    private int animationStep;
+    [SerializeField]
+    private float fps = 30f;
+    private float fpsCounter;
 
     private DynamicHexGrid shipGridSystem;
     private HullManager hullManager;
@@ -48,18 +57,44 @@ public class DebrisAttachment : MonoBehaviour
 
     void Update()
     {
+        // Handle line renderer animation
+        AnimateLineRenderer();
+
+        // Continuously update the line renderer positions even after attachment
+        if (isBeingPulled || isAttached)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, shipTransform.position);
+        }
+
         if (isBeingPulled && !isAttached)
         {
             Vector3 targetWorldPosition = shipGridSystem.HexToWorldPosition(targetGridPosition) + shipTransform.position;
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, pullSpeed * Time.deltaTime);
 
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, shipTransform.position);
-
             if (Vector3.Distance(transform.position, targetWorldPosition) < 0.1f)
             {
                 AttachToShip();
             }
+        }
+    }
+
+    // Animation logic for the line renderer
+    private void AnimateLineRenderer()
+    {
+        if (textures.Length == 0) return; // Ensure textures are assigned
+
+        fpsCounter += Time.deltaTime;
+        if (fpsCounter >= 1f / fps)
+        {
+            animationStep++;
+            if (animationStep == textures.Length)
+            {
+                animationStep = 0;
+            }
+
+            lineRenderer.material.SetTexture("_MainTex", textures[animationStep]);
+            fpsCounter = 0f;
         }
     }
 
@@ -77,7 +112,9 @@ public class DebrisAttachment : MonoBehaviour
 
         transform.SetParent(shipTransform);
         transform.position = shipGridSystem.HexToWorldPosition(targetGridPosition) + shipTransform.position; // Align perfectly with the cell center
-        lineRenderer.enabled = false;
+
+        // Keep the line renderer enabled and active
+        lineRenderer.enabled = true;
 
         GetComponent<DebrisMovement>().AttachToShip();
 
@@ -122,7 +159,6 @@ public class DebrisAttachment : MonoBehaviour
         }
     }
 
-    // Example of finding another unoccupied cell if the first choice is already reserved
     Vector2Int FindAnotherUnoccupiedCell()
     {
         List<Vector2Int> allCells = shipGridSystem.GetAllHexCoordinates();
@@ -136,19 +172,15 @@ public class DebrisAttachment : MonoBehaviour
             }
         }
 
-        // Fallback: return center cell if no other options (should rarely happen)
         return new Vector2Int(0, 0);
     }
 
-    // Find the nearest unoccupied cell to the center of the grid (relative to the ship)
     Vector2Int FindNearestUnoccupiedCellToCenter()
     {
-        Vector2Int gridCenter = new Vector2Int(0, 0); // Center of the grid is usually (0, 0)
-        List<Vector2Int> allCells = shipGridSystem.GetAllHexCoordinates(); // Assuming you have a method to get all grid cells
+        Vector2Int gridCenter = new Vector2Int(0, 0);
+        List<Vector2Int> allCells = shipGridSystem.GetAllHexCoordinates();
 
-        allCells.Sort((a, b) =>
-            Vector2Int.Distance(a, gridCenter).CompareTo(Vector2Int.Distance(b, gridCenter))
-        );
+        allCells.Sort((a, b) => Vector2Int.Distance(a, gridCenter).CompareTo(Vector2Int.Distance(b, gridCenter)));
 
         foreach (Vector2Int cell in allCells)
         {
@@ -158,11 +190,9 @@ public class DebrisAttachment : MonoBehaviour
             }
         }
 
-        // Fallback: if all cells are occupied (which should rarely happen), return the center cell
         return gridCenter;
     }
 
-    // Optional: Visualize the detection range in the editor
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

@@ -71,6 +71,7 @@ public class HullManager : MonoBehaviour
     public void ApplyHealthModifier(float modifier)
     {
         hullHealth.maxHealth += modifier;
+        hullHealth.currentHealth += modifier;
         hullHealth.currentHealth = Mathf.Clamp(hullHealth.currentHealth, 0, hullHealth.maxHealth);
     }
 
