@@ -32,12 +32,53 @@ public class DynamicHexGrid : MonoBehaviour
     }
 
     // Converts axial hex coordinates to world space
-    Vector3 HexToWorldPosition(Vector2Int hexCoord)
+    public Vector3 HexToWorldPosition(Vector2Int hexCoord)
     {
         float x = hexSize * (3f / 2f * hexCoord.x);
         float y = hexSize * (Mathf.Sqrt(3) * (hexCoord.y + hexCoord.x / 2f));
         return new Vector3(x, y, 0);
     }
+
+    // Converts world position to axial hex coordinates
+    public Vector2Int WorldToHexCoordinates(Vector3 worldPosition)
+    {
+        // Convert the world position relative to the ship
+        Vector3 relativePosition = worldPosition - ship.transform.position;
+
+        float q = (2f / 3f * relativePosition.x) / hexSize;
+        float r = (-1f / 3f * relativePosition.x + Mathf.Sqrt(3f) / 3f * relativePosition.y) / hexSize;
+
+        // Round to the nearest hex coordinate
+        return RoundToHexCoordinates(q, r);
+    }
+
+    // Rounds fractional axial coordinates to the nearest hex
+    Vector2Int RoundToHexCoordinates(float q, float r)
+    {
+        int roundedQ = Mathf.RoundToInt(q);
+        int roundedR = Mathf.RoundToInt(r);
+        int roundedS = Mathf.RoundToInt(-q - r);
+
+        float qDiff = Mathf.Abs(roundedQ - q);
+        float rDiff = Mathf.Abs(roundedR - r);
+        float sDiff = Mathf.Abs(roundedS + q + r);
+
+        if (qDiff > rDiff && qDiff > sDiff)
+        {
+            roundedQ = -roundedR - roundedS;
+        }
+        else if (rDiff > sDiff)
+        {
+            roundedR = -roundedQ - roundedS;
+        }
+
+        return new Vector2Int(roundedQ, roundedR);
+    }
+    public List<Vector2Int> GetAllHexCoordinates()
+    {
+        return new List<Vector2Int>(hexes.Keys);
+    }
+
 
     // Draws the grid and the triangles using Gizmos in the OnDrawGizmos method
     void OnDrawGizmos()
@@ -93,7 +134,7 @@ public class DynamicHexGrid : MonoBehaviour
     }
 
     // Returns a list of the axial coordinates of neighboring hexes
-    List<Vector2Int> GetHexNeighbors(Vector2Int hex)
+    public List<Vector2Int> GetHexNeighbors(Vector2Int hex)
     {
         List<Vector2Int> directions = new List<Vector2Int>
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class HullManager : MonoBehaviour
 {
     public Health hullHealth;
-    public ShipHexGridSystem hexGridSystem;
+    public DynamicHexGrid hexGridSystem; // Updated reference to the DynamicHexGrid
     public GameObject defaultBulletPrefab;
     public PlayerController playerController;
     private List<Attachment> attachments = new List<Attachment>();
@@ -33,7 +33,6 @@ public class HullManager : MonoBehaviour
         mainCamera = Camera.main;
         hullHealth.onHealthChanged += OnHealthChanged;
         hullHealth.onDeath += OnHullDestroyed;
-
     }
 
     public void AddAttachment(Attachment newAttachment)
@@ -144,33 +143,34 @@ public class HullManager : MonoBehaviour
 
     void ExpandGridRadiusAndScaleHull()
     {
-        hexGridSystem.IncreaseHexRadius(hexRadiusExpansionAmount);
-
+        // Adjust the grid size if necessary (if you have a method to expand the grid)
         Vector3 scaleIncrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
         transform.localScale += scaleIncrease;
 
+        // Update attachment positions based on the new grid layout
         foreach (var attachment in attachments)
         {
             attachment.transform.localScale = Vector3.one;
-            Vector3 newPosition = hexGridSystem.GetWorldPosition(attachment.gridPosition);
+            Vector3 newPosition = hexGridSystem.HexToWorldPosition(attachment.gridPosition);
             attachment.transform.position = newPosition;
         }
     }
 
     void ShrinkGridRadiusAndScaleHull()
     {
-        hexGridSystem.IncreaseHexRadius(-hexRadiusExpansionAmount);
-
+        // Adjust the grid size if necessary (if you have a method to shrink the grid)
         Vector3 scaleDecrease = new Vector3(scaleUpAmount, scaleUpAmount, 0);
         transform.localScale -= scaleDecrease;
 
+        // Update attachment positions based on the new grid layout
         foreach (var attachment in attachments)
         {
             attachment.transform.localScale = Vector3.one;
-            Vector3 newPosition = hexGridSystem.GetWorldPosition(attachment.gridPosition);
+            Vector3 newPosition = hexGridSystem.HexToWorldPosition(attachment.gridPosition);
             attachment.transform.position = newPosition;
         }
     }
+
     void OnHullDestroyed()
     {
         Debug.Log("Hull Destroyed!");

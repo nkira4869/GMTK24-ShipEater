@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DebrisAttachment : MonoBehaviour
@@ -7,12 +8,11 @@ public class DebrisAttachment : MonoBehaviour
     public float maxDetectionRange = 5f; // Maximum detection range
     public LineRenderer lineRenderer; // LineRenderer for visualizing the pull
 
-    // New Variables
     public float healthModifier = 1.1f; // Health modifier (multiplicative)
     public float speedModifier = 0.5f; // Speed modifier (additive)
     public GameObject bulletPatternPrefab; // Reference to a bullet pattern that will be activated on attachment
 
-    private ShipHexGridSystem shipGridSystem;
+    private DynamicHexGrid shipGridSystem;
     private HullManager hullManager;
     private Transform shipTransform;
     private Vector2Int targetGridPosition;
@@ -23,21 +23,17 @@ public class DebrisAttachment : MonoBehaviour
 
     void Start()
     {
-        // Set a random detection range within the defined min and max values
         detectionRange = Random.Range(minDetectionRange, maxDetectionRange);
 
-        // Adjust the CircleCollider2D radius to match the detection range
         circleCollider = GetComponent<CircleCollider2D>();
         if (circleCollider != null)
         {
             circleCollider.radius = detectionRange;
         }
 
-        // Get the reference to the ship's grid system
-        shipGridSystem = FindObjectOfType<ShipHexGridSystem>();
+        shipGridSystem = FindObjectOfType<DynamicHexGrid>();
         hullManager = FindObjectOfType<HullManager>();
 
-        // Initialize the LineRenderer if not already assigned
         if (lineRenderer == null)
         {
             lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -46,7 +42,7 @@ public class DebrisAttachment : MonoBehaviour
             lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
             lineRenderer.startColor = Color.yellow;
             lineRenderer.endColor = Color.yellow;
-            lineRenderer.enabled = false; // Start with the LineRenderer disabled
+            lineRenderer.enabled = false;
         }
     }
 
@@ -54,14 +50,12 @@ public class DebrisAttachment : MonoBehaviour
     {
         if (isBeingPulled && !isAttached)
         {
-            Vector3 targetWorldPosition = shipGridSystem.GetWorldPosition(targetGridPosition);
+            Vector3 targetWorldPosition = shipGridSystem.HexToWorldPosition(targetGridPosition) + shipTransform.position;
             transform.position = Vector3.MoveTowards(transform.position, targetWorldPosition, pullSpeed * Time.deltaTime);
 
-            // Update the LineRenderer positions
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, shipTransform.position);
 
-            // Check if the debris has reached the target grid cell
             if (Vector3.Distance(transform.position, targetWorldPosition) < 0.1f)
             {
                 AttachToShip();
@@ -74,36 +68,29 @@ public class DebrisAttachment : MonoBehaviour
         isBeingPulled = false;
         isAttached = true;
 
-        // Change the debris layer to "Player"
         gameObject.layer = LayerMask.NameToLayer("Player");
         gameObject.tag = "Player";
 
-        // Mark the grid cell as occupied and expand the grid
-        shipGridSystem.MarkCellAsOccupied(targetGridPosition);
-        shipGridSystem.RemoveReservedCell(targetGridPosition);
+        shipGridSystem.OccupyCell(targetGridPosition);
 
         circleCollider.radius = 0.2f;
 
-        // Attach the debris to the ship
         transform.SetParent(shipTransform);
+        transform.position = shipGridSystem.HexToWorldPosition(targetGridPosition) + shipTransform.position; // Align perfectly with the cell center
         lineRenderer.enabled = false;
 
-        // Stop the debris movement when attached
         GetComponent<DebrisMovement>().AttachToShip();
 
-        // Dynamically add the Attachment script and register it with the HullManager
         if (hullManager != null)
         {
             Attachment attachment = gameObject.AddComponent<Attachment>();
             attachment.gridPosition = targetGridPosition;
             hullManager.AddAttachment(attachment);
 
-            // Apply health and speed modifiers
             hullManager.ApplyHealthModifier(healthModifier);
             hullManager.ApplySpeedModifier(speedModifier);
         }
 
-        // Activate the bullet pattern if one is assigned
         if (bulletPatternPrefab != null)
         {
             GameObject bulletPattern = Instantiate(bulletPatternPrefab, shipTransform);
@@ -112,9 +99,8 @@ public class DebrisAttachment : MonoBehaviour
                 bulletPattern.GetComponent<Shooter>().shootPoint = this.gameObject.transform;
                 bulletPattern.GetComponent<Shooter>().bulletPrefab = hullManager.defaultBulletPrefab;
             }
-            
+
             bulletPattern.transform.SetParent(this.gameObject.transform);
-            
         }
     }
 
@@ -123,12 +109,32 @@ public class DebrisAttachment : MonoBehaviour
         if (other.CompareTag("Player") && !isBeingPulled && !isAttached)
         {
             shipTransform = hullManager.transform;
-            targetGridPosition = shipGridSystem.FindNearestEmptyCell(transform.position);
+            targetGridPosition = FindNearestUnoccupiedCellToCenter();
             isBeingPulled = true;
-
-            // Enable the LineRenderer when pulling starts
             lineRenderer.enabled = true;
         }
+    }
+
+    // Find the nearest unoccupied cell to the center of the grid (relative to the ship)
+    Vector2Int FindNearestUnoccupiedCellToCenter()
+    {
+        Vector2Int gridCenter = new Vector2Int(0, 0); // Center of the grid is usually (0, 0)
+        List<Vector2Int> allCells = shipGridSystem.GetAllHexCoordinates(); // Assuming you have a method to get all grid cells
+
+        allCells.Sort((a, b) =>
+            Vector2Int.Distance(a, gridCenter).CompareTo(Vector2Int.Distance(b, gridCenter))
+        );
+
+        foreach (Vector2Int cell in allCells)
+        {
+            if (!shipGridSystem.IsCellOccupied(cell))
+            {
+                return cell;
+            }
+        }
+
+        // Fallback: if all cells are occupied (which should rarely happen), return the center cell
+        return gridCenter;
     }
 
     // Optional: Visualize the detection range in the editor
