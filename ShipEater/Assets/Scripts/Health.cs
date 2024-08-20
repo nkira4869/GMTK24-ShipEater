@@ -4,7 +4,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f; // Maximum health
     public float currentHealth;
-    private bool isImmune = false; // Track whether the object is immune to damage
+    public bool isImmune = false; // Track whether the object is immune to damage
 
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged; // Event to notify when health changes

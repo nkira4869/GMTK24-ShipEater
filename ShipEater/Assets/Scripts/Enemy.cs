@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     public Color hitColor;
 
+    private Renderer enemyRenderer; // Reference to the renderer for visibility checking
+
     void Start()
     {
         // Setup the enemy sprite
@@ -43,6 +45,10 @@ public class Enemy : MonoBehaviour
         healthComponent = gameObject.GetComponent<Health>();
         healthComponent.maxHealth = health;
         healthComponent.currentHealth = health;
+        healthComponent.isImmune = true;
+
+        // Reference to the renderer for visibility checking
+        enemyRenderer = GetComponent<Renderer>();
 
         // Assign the bullet damage to any existing bullet patterns (if manually added)
         var shooters = GetComponentsInChildren<Shooter>();
@@ -64,7 +70,6 @@ public class Enemy : MonoBehaviour
             {
                 hm.damage = bulletDamage;
             }
-
         }
 
         // Subscribe to the health component's events
@@ -80,7 +85,25 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        // Check if the enemy is within the camera view and adjust immunity
+        UpdateImmunityBasedOnVisibility();
+
         MoveEnemy();
+    }
+
+    void UpdateImmunityBasedOnVisibility()
+    {
+        // Check if the enemy is visible on the screen
+        if (enemyRenderer.isVisible)
+        {
+            // If the enemy is visible, remove immunity
+            healthComponent.isImmune = false;
+        }
+        else
+        {
+            // If the enemy is outside the camera's view, apply immunity
+            healthComponent.isImmune = true;
+        }
     }
 
     void MoveEnemy()
@@ -152,7 +175,7 @@ public class Enemy : MonoBehaviour
         // Check if debris can drop and roll for the drop chance
         if (canDropDebris && debrisPrefab != null)
         {
-            if (Random.value <= debrisDropChancePercent/100) // Random.value returns a float between 0 and 1
+            if (Random.value <= debrisDropChancePercent / 100) // Random.value returns a float between 0 and 1
             {
                 Instantiate(debrisPrefab, transform.position, Quaternion.identity);
             }
