@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: damagePerSecond
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7675259499501895937, guid: 34a4e551b789e6e498049aa94e9e62ca, type: 3}
+      propertyPath: targetLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

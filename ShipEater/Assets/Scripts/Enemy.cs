@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
     IEnumerator FlashRed()
     {
         // Change color to red
-        spriteRenderer.color = Color.red;
+        spriteRenderer.color = hitColor;
 
         // Wait for a short duration
         yield return new WaitForSeconds(0.1f);
