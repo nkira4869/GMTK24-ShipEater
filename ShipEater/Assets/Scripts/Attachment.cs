@@ -37,6 +37,14 @@ public class Attachment : MonoBehaviour
             transform.position = newPosition;
         }
     }
+    public void OnGridScaled(float scaleFactor)
+    {
+        // Multiply the existing scale by the new scale factor
+        transform.localScale *= scaleFactor;
+
+        // Reposition the attachment after scaling, if necessary
+        Reposition();
+    }
 
     // Make the attachment immune to damage
     public void MakeImmuneToDamage()
@@ -57,10 +65,5 @@ public class Attachment : MonoBehaviour
             healthComponent.SetImmune(isImmuneToDamage); // Update the Health component
         }
     }
-
-    // Event handler for when the grid is scaled (e.g., during level-up)
-    public void OnGridScaled()
-    {
-        Reposition(); // Recalculate and update the position based on the new grid scale
-    }
+    
 }
