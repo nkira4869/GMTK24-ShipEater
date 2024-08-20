@@ -20,6 +20,8 @@ public class HullManager : MonoBehaviour
     public float scaleUpAmount = 0.1f;
     private float previousHexSize;
     private int currentImmunityLevel = 0;
+    private bool isScalingScheduled = false;
+
     [Header("Immunity Sprites")]
     public Sprite[] hullSprites; // Array of sprites corresponding to immunity levels 0 to 3
     private SpriteRenderer hullSpriteRenderer; // Reference to the sprite renderer for the hull
@@ -54,8 +56,22 @@ public class HullManager : MonoBehaviour
         attachments.Add(newAttachment);
         newAttachment.Attach(hexGridSystem);
 
-        CheckForLevelChange();
-        CheckAndApplyRingImmunity(); // Check for immunity based on ring occupancy
+        // Schedule the scaling event with a delay if not already scheduled
+        if (!isScalingScheduled)
+        {
+            isScalingScheduled = true;
+            StartCoroutine(DelayedTriggerScalingEvent(1.0f)); // Adjust the delay time (in seconds) as needed
+        }
+    }
+    private IEnumerator DelayedTriggerScalingEvent(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Trigger the scaling event
+        ScaleAllComponents();
+
+        // Reset the flag so the next scaling can be scheduled
+        isScalingScheduled = false;
     }
 
     public void RemoveAttachment(Attachment attachmentToRemove)
