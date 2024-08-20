@@ -17,6 +17,7 @@ public class HullManager : MonoBehaviour
 
     public float hexRadiusExpansionAmount = 0.5f;
     public float scaleUpAmount = 0.1f;
+    private float previousHexSize;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class HullManager : MonoBehaviour
         {
             playerController = GetComponent<PlayerController>();
         }
-
+        previousHexSize = hexGridSystem.hexSize;
         mainCamera = Camera.main;
         hullHealth.onHealthChanged += OnHealthChanged;
         hullHealth.onDeath += OnHullDestroyed;
@@ -151,9 +152,19 @@ public class HullManager : MonoBehaviour
 
     void NotifyAttachmentsOfGridScale()
     {
+        float scaleFactor = hexGridSystem.hexSize / previousHexSize; // Calculate the scale change factor relative to the previous size.
+        previousHexSize = hexGridSystem.hexSize; // Update the previous size to the current one.
+
         foreach (var attachment in attachments)
         {
-            attachment.OnGridScaled(); // Notify each attachment to reposition itself
+            attachment.OnGridScaled(scaleFactor); // Pass the scale factor to each attachment.
+        }
+
+        // Adjust the hull sprite scaling separately, multiplying by the scale factor
+        Transform hullSpriteTransform = transform.Find("HullSprite");
+        if (hullSpriteTransform != null)
+        {
+            hullSpriteTransform.localScale *= scaleFactor;
         }
     }
 
