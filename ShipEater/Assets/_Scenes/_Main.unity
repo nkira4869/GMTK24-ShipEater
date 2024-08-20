@@ -1794,6 +1794,14 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5730191018738133243, guid: 9d7c4f4978ee8a94ba77af13f583dd9a, type: 3}
+      propertyPath: cosmeticLifetime
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730191018738133243, guid: 9d7c4f4978ee8a94ba77af13f583dd9a, type: 3}
+      propertyPath: randomizeRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730191018738133243, guid: 9d7c4f4978ee8a94ba77af13f583dd9a, type: 3}
       propertyPath: minYPositionToDespawn
       value: -150
       objectReference: {fileID: 0}
@@ -2800,6 +2808,14 @@ PrefabInstance:
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
+      propertyPath: cosmeticLifetime
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
+      propertyPath: randomizeRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
       propertyPath: minYPositionToDespawn
       value: -150
       objectReference: {fileID: 0}
@@ -3255,6 +3271,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5730191018738133243, guid: 9d7c4f4978ee8a94ba77af13f583dd9a, type: 3}
+      propertyPath: cosmeticLifetime
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730191018738133243, guid: 9d7c4f4978ee8a94ba77af13f583dd9a, type: 3}
       propertyPath: minYPositionToDespawn
       value: -150
       objectReference: {fileID: 0}
@@ -3617,6 +3637,10 @@ PrefabInstance:
     - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
       propertyPath: spawnAreaTop.y
       value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
+      propertyPath: cosmeticLifetime
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3698579358968254533, guid: 1730b43c46f516643893b61701c31418, type: 3}
       propertyPath: minYPositionToDespawn
